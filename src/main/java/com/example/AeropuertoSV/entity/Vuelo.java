@@ -21,7 +21,7 @@ public class Vuelo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idVuelo;
+	private Long idVuelo;
 	@Column(name = "nroVuelo")
 	private String nVuelo;
 	@Column(name = "fecha")
@@ -34,6 +34,8 @@ public class Vuelo {
 	private String destino;
 	@OneToMany(mappedBy = "vuelo")
 	private List<Pasaje> pasajes;
+	@Column(name = "estado")
+	private String estado;
 	
 	
 	public Vuelo() {
@@ -49,6 +51,7 @@ public class Vuelo {
 		this.hora = hora;
 		this.origen = origen;
 		this.destino = destino;
+		this.estado = "Normal";
 	}
 
 

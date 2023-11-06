@@ -2,10 +2,10 @@ package com.example.AeropuertoSV.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.AeropuertoSV.entity.Vuelo;
+import com.example.AeropuertoSV.entity.Avion;
 
 
 @Repository
-public interface IVueloRepository extends JpaRepository<Vuelo, Long> {
-
+public interface IAvionRepository extends JpaRepository<Avion, Long>{
+	
 }

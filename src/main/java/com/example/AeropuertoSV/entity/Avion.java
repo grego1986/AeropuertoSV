@@ -13,13 +13,14 @@ import jakarta.persistence.Table;
 public class Avion {
 
 	@Id
-	private long id;
+	private Long id;
 	@Column(name ="fila")
 	private Integer fila;
 	@Column(name = "columna")
 	private Integer Columna;
 	@OneToMany(mappedBy = "avion")
 	private List<Asiento> asientos;
+	
 
 	public Avion() {
 		super();
