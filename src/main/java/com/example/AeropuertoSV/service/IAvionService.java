@@ -6,8 +6,8 @@ import com.example.AeropuertoSV.entity.Avion;
 public interface IAvionService {
 	
 	public List<Avion> getAll();
-	public void cargarVuelo(Avion avion);
-	public void modificarVuelo(Avion avion, Long id);
-	public void eliminarVuelo(Avion avion);
-	public Avion consultarVuelo (Long id);
+	public void cargarAvion(Avion avion);
+	public void modificarAvion(Avion avion, Long id);
+	public void eliminarAvion(Avion avion);
+	public Avion consultarAvion (Long id);
 }

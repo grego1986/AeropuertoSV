@@ -2,12 +2,12 @@ package com.example.AeropuertoSV.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-//@Controller
+@Controller
 public class indexController {
 
-	/*@GetMapping("/")
+	@GetMapping("/")
 	public String abrir() {
 		return "index.html";
-	}*/
+	}
 	
 }

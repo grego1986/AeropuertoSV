@@ -23,12 +23,12 @@ public class AvionService implements IAvionService {
 	}
 
 	@Override
-	public void cargarVuelo(Avion avion) {
+	public void cargarAvion(Avion avion) {
 		avionRepo.save(avion);
 	}
 
 	@Override
-	public void modificarVuelo(@RequestBody Avion avion, @PathVariable Long id) {
+	public void modificarAvion(@RequestBody Avion avion, @PathVariable Long id) {
 		if (avionRepo.existsById(id)) {
             avion.setId(id);
             avionRepo.save(avion);
@@ -36,12 +36,12 @@ public class AvionService implements IAvionService {
 	}
 
 	@Override
-	public void eliminarVuelo(Avion avion) {
+	public void eliminarAvion(Avion avion) {
 		avionRepo.delete(avion);
 	}
 
 	@Override
-	public Avion consultarVuelo(Long id) {
+	public Avion consultarAvion(Long id) {
 		return avionRepo.findById(id).orElse(null);
 	}
 
