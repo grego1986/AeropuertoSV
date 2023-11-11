@@ -1,16 +1,14 @@
 package com.example.AeropuertoSV.controller;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-public class indexController {
+public class RegistroVueloController {
 
-	@GetMapping()
-	public String abrirIndex() {
-		return "index";
+	@RequestMapping("/registroVuelo")
+	public String abrirRegistroVuelo() {
+		return "registroVuelo";
 	}
-	
 	
 }
