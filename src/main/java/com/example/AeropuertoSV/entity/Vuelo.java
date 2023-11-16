@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name ="vuelos")
-public class Vuelo {
+public abstract class Vuelo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,13 +124,6 @@ public class Vuelo {
 		this.pasajes = pasajes;
 	}
 
+	
 
-	@Override
-	public String toString() {
-		return "Vuelo [idVuelo=" + idVuelo + ", nVuelo=" + nVuelo + ", fecha=" + fecha + ", hora=" + hora + ", origen="
-				+ origen + ", destino=" + destino + ", pasajes=" + pasajes + "]";
 	}
-	
-	
-	
-}

@@ -1,5 +1,6 @@
 package com.example.AeropuertoSV.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class Cliente {
 	@Column(name = "mail")
 	private String mail;
 	@Column(name = "nacimiento")
-	private String fNacimiento;
+	private LocalDate fNacimiento;
 	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private Pasaporte pasaporte;
 	@OneToMany(mappedBy = "cliente")
@@ -39,7 +40,7 @@ public class Cliente {
 		super();
 	}
 	
-	public Cliente(long dni, String nombre, String apellido, String domicilio, String mail, String fNacimiento) {
+	public Cliente(long dni, String nombre, String apellido, String domicilio, String mail, LocalDate fNacimiento) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -89,11 +90,11 @@ public class Cliente {
 		this.mail = mail;
 	}
 
-	public String getfNacimiento() {
+	public LocalDate getfNacimiento() {
 		return fNacimiento;
 	}
 
-	public void setfNacimiento(String fNacimiento) {
+	public void setfNacimiento(LocalDate fNacimiento) {
 		this.fNacimiento = fNacimiento;
 	}
 
