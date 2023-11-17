@@ -11,12 +11,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name ="vuelos")
+@Table(name = "vuelos")
 public abstract class Vuelo {
 
 	@Id
@@ -28,22 +30,26 @@ public abstract class Vuelo {
 	private LocalDate fecha;
 	@Column(name = "hora")
 	private LocalTime hora;
-	@Column(name = "origen")
-	private String origen;
-	@Column(name = "destino")
-	private String destino;
+	@ManyToOne
+	@JoinColumn(name = "ciudad_origen")
+	private Ciudad origen;
+	@ManyToOne
+	@JoinColumn(name = "ciudad_destino")
+	private Ciudad destino;
 	@OneToMany(mappedBy = "vuelo")
 	private List<Pasaje> pasajes;
 	@Column(name = "estado")
 	private String estado;
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "avion_Asignado")
+	private Avion avionAsignado;
+
 	public Vuelo() {
 		super();
 	}
 
-
-	public Vuelo(long idVuelo, String nVuelo, LocalDate fecha, LocalTime hora, String origen, String destino) {
+	public Vuelo(Long idVuelo, String nVuelo, LocalDate fecha, LocalTime hora, Ciudad origen, Ciudad destino,
+			List<Pasaje> pasajes, String estado, Avion avion) {
 		super();
 		this.idVuelo = idVuelo;
 		this.nVuelo = nVuelo;
@@ -51,79 +57,85 @@ public abstract class Vuelo {
 		this.hora = hora;
 		this.origen = origen;
 		this.destino = destino;
-		this.estado = "Normal";
+		this.pasajes = pasajes;
+		this.estado = estado;
+		this.avionAsignado = avion;
 	}
-
 
 	public long getIdVuelo() {
 		return idVuelo;
 	}
 
-
 	public void setIdVuelo(long idVuelo) {
 		this.idVuelo = idVuelo;
 	}
-
 
 	public String getnVuelo() {
 		return nVuelo;
 	}
 
-
 	public void setnVuelo(String nVuelo) {
 		this.nVuelo = nVuelo;
 	}
-
 
 	public LocalDate getFecha() {
 		return fecha;
 	}
 
-
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-
 
 	public LocalTime getHora() {
 		return hora;
 	}
 
-
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
-
-	public String getOrigen() {
+	public Ciudad getOrigen() {
 		return origen;
 	}
 
-
-	public void setOrigen(String origen) {
+	public void setOrigen(Ciudad origen) {
 		this.origen = origen;
 	}
 
-
-	public String getDestino() {
+	public Ciudad getDestino() {
 		return destino;
 	}
 
-
-	public void setDestino(String destino) {
+	public void setDestino(Ciudad destino) {
 		this.destino = destino;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public void setIdVuelo(Long idVuelo) {
+		this.idVuelo = idVuelo;
+	}
 
 	public List<Pasaje> getPasajes() {
 		return pasajes;
 	}
 
-
 	public void setPasajes(List<Pasaje> pasajes) {
 		this.pasajes = pasajes;
 	}
 
-	
-
+	public Avion getAvionAsignado() {
+		return avionAsignado;
 	}
+
+	public void setAvionAsignado(Avion avionAsignado) {
+		this.avionAsignado = avionAsignado;
+	}
+
+}

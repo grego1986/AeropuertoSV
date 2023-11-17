@@ -2,6 +2,7 @@ package com.example.AeropuertoSV.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,24 +15,26 @@ public class Avion {
 
 	@Id
 	private Long id;
-	@Column(name ="fila")
+	@Column(name = "fila")
 	private Integer fila;
 	@Column(name = "columna")
 	private Integer Columna;
 	@OneToMany(mappedBy = "avion")
 	private List<Asiento> asientos;
-	
+	@OneToMany(mappedBy = "avionAsignado", cascade = CascadeType.ALL)
+	private List<Vuelo> vuelos;
 
 	public Avion() {
 		super();
 	}
 
-	public Avion(long id, Integer fila, Integer columna, List<Asiento> asientos) {
+	public Avion(Long id, Integer fila, Integer columna, List<Asiento> asientos, List<Vuelo> vuelos) {
 		super();
 		this.id = id;
 		this.fila = fila;
 		Columna = columna;
 		this.asientos = asientos;
+		this.vuelos = vuelos;
 	}
 
 	public long getId() {
@@ -65,7 +68,17 @@ public class Avion {
 	public void setAsientos(List<Asiento> asientos) {
 		this.asientos = asientos;
 	}
-	
-	
+
+	public List<Vuelo> getVuelos() {
+		return vuelos;
+	}
+
+	public void setVuelos(List<Vuelo> vuelos) {
+		this.vuelos = vuelos;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 }

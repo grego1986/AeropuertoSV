@@ -24,13 +24,22 @@ INSERT INTO `aeropuerto_sv`.`clientes` (`apellido`, `nombre`, `domicilio`, `naci
     ('Rodríguez', 'Ana', 'Av. Secundaria', '1988-11-05', 'ana@gmail.com'),
     ('Pérez', 'Luis', 'Calle 789', '1995-03-25', 'luis@hotmail.com');
 
+    -- Insertar datos en la tabla `ciudades`
+INSERT INTO `aeropuerto_sv`.`ciudades` (`nombre`) VALUES
+    ('Sauce Viejo'),
+    ('Rosario'),
+    ('Buenos Aires'),
+    ('Cordoba'),
+    ('Lima'),
+    ('New York');
+
 -- Insertar datos en la tabla `vuelos`
-INSERT INTO `aeropuerto_sv`.`vuelos` (`destino`, `estado`, `fecha`, `hora`, `nro_vuelo`, `origen`) VALUES
-    ('Rosario', 'Normal', '2023-12-01', '12:30:00', 'SV123', 'Sauce Viejo'),
-    ('Buenos Aires', 'Normal', '2023-11-25', '15:45:00', 'SV456', 'Sauce Viejo'),
-    ('Cordoba', 'Reprogramado', '2023-11-20', '08:00:00', 'SV789', 'Sauce Viejo'),
-    ('Lima', 'Cancelado', '2023-12-10', '10:15:00', 'SV101', 'Sauce Viejo'),
-    ('Nueva York', 'normal', '2023-12-05', '18:20:00', 'SV202', 'Sauce Viejo');
+INSERT INTO `aeropuerto_sv`.`vuelos` (`ciudad_destino`, `estado`, `fecha`, `hora`, `nro_vuelo`, `ciudad_origen`) VALUES
+    (2, 'Normal', '2023-12-01', '12:30:00', 'SV123', 1),
+    (3, 'Normal', '2023-11-25', '15:45:00', 'SV456', 1),
+    (4, 'Reprogramado', '2023-11-20', '08:00:00', 'SV789', 1),
+    (5, 'Cancelado', '2023-12-10', '10:15:00', 'SV101', 1),
+    (6, 'normal', '2023-12-05', '18:20:00', 'SV202', 1);
 
 -- Insertar datos en la tabla `internacionales`
 INSERT INTO `aeropuerto_sv`.`internacionales` (`precio`, `tasa`, `id_vuelo`) VALUES
@@ -53,3 +62,5 @@ INSERT INTO `aeropuerto_sv`.`pasajes` (`precio_total`, `cliente_id`, `vuelo_id`)
 INSERT INTO `aeropuerto_sv`.`pasaportes` (`expiracion`, `n_pasaporte`, `cliente_id`) VALUES
     ('2025-01-10', 'ad125112544d', 4),
     ('2024-01-10', 'jjnh23522614', 5);
+    
+    
