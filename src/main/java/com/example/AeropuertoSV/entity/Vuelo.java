@@ -138,4 +138,8 @@ public abstract class Vuelo {
 		this.avionAsignado = avionAsignado;
 	}
 
+	@Override
+	public abstract String toString();
+
+	
 }

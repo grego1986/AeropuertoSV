@@ -49,7 +49,7 @@ public class Internacional extends Vuelo {
 
 	@Override
 	public String toString() {
-		return "Internacional [precio=" + precio + ", tasa=" + tasa + "]";
+		return "Internacional";
 	}
 	
 	

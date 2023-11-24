@@ -2,60 +2,89 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<title>Aeropuerto Sauce Viejo </title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/static/css/Style.css">
+    <meta charset="utf-8">
+    <title>Aeropuerto Sauce Viejo </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/Style.css">
 </head>
 
 <body>
-	 <h1>Registro de Vuelo</h1>
-    <form action="procesar_formulario.php" method="post">
-        <label for="nro_vuelo">Número de Vuelo:</label>
-        <input type="text" name="nro_vuelo" required>
-        <br>
+    <div class="row ccontainerfluid">
+        <div class="col-4">
 
-        <label for="origen">Origen:</label>
-        <select name="origen" required>
-            <option value="ciudad1">Ciudad 1</option>
-            <option value="ciudad2">Ciudad 2</option>
-            <!-- Agrega más opciones según tus ciudades registradas -->
-        </select>
-        <br>
+        </div>
 
-        <label for="destino">Destino:</label>
-        <select name="destino" required>
-            <option value="ciudad1">Ciudad 1</option>
-            <option value="ciudad2">Ciudad 2</option>
-            <!-- Agrega más opciones según tus ciudades registradas -->
-        </select>
-        <br>
+        <div class="col-4">
+            <h1>Registro de Vuelo</h1>
+        </div>
 
-        <label for="tipo_vuelo">Tipo de Vuelo:</label>
-        <input type="radio" name="tipo_vuelo" value="nacional" required> Nacional
-        <input type="radio" name="tipo_vuelo" value="internacional" required> Internacional
-        <br>
+        <div class="col-4">
 
-        <label for="precio_pasaje">Precio del Pasaje:</label>
-        <input type="number" name="precio_pasaje" step="0.01" min="0" required>
-        <br>
+        </div>
 
-        <label for="fecha_hora_partida">Fecha y Hora de Partida:</label>
-        <input type="datetime-local" name="fecha_hora_partida" required>
-        <br>
+    </div>
 
-        <label for="avion">Avión:</label>
-        <select name="avion" required>
-            <option value="avion1">Avión 1</option>
-            <option value="avion2">Avión 2</option>
-            <!-- Agrega más opciones según las aeronaves registradas en el sistema -->
-        </select>
-        <br>
+    <div class="row ccontainerfluid">
+        <div class="col-4">
 
-        <input type="submit" value="Registrar Vuelo">
-    </form>
-	
-	
+        </div>
+
+        <div class="col-4">
+            <form th:action="@{/registroVuelo}" th:oject="${formBean}" method="get">
+
+
+                <label>Número de Vuelo:</label>
+                <input type="text" th:field="*{nVuelo}" />
+                <br>
+
+
+                <label>Fecha:</label>
+                <input type="date" th:field="*{fecha}" />
+                <br>
+
+
+                <label>Hora:</label>
+                <input type="time" th:field="*{hora}" />
+                <br>
+
+
+                <label>Origen:</label>
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" th:field="*{origen}">
+                    <option th:each="ciudad : ${ciudadOrigen}" th:value="${ciudad}" th:text="${ciudad.nombre}"></option>
+                  </select>
+                
+                <label>Destino:</label>
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" th:field="*{destino}">
+                    <option th:each="ciudad : ${ciudadDetino}" th:value="${ciudad}" th:text="${ciudad.nombre}"></option>
+                  </select>
+
+
+                <label>Estado:</label>
+                <input type="text" th:field="*{estado}" />
+                <br>
+
+
+                <label>Avión Asignado:</label>
+                <select th:field="*{avionAsignado}">
+                    <option th:each="avion : ${aviones}" th:value="${avion}" th:text="${avion.nombre}"></option>
+                </select>
+                <br>
+
+
+                <button type="submit" class="btn btn-primary">Guardar Vuelo</button>
+                <button type="submit" class="btn btn-secondary">Volver</button>
+
+            </form>
+        </div>
+
+        <div class="col-4">
+
+        </div>
+
+    </div>
+
+
 </body>
+
 </html>

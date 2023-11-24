@@ -38,9 +38,9 @@ public class TicketService implements ITicketService {
 		ticketSystem.append("Número de ticket" + ticket.getId());
 		ticketSystem.append("\\n Cliente:" + ticket.getCliente().getApellido() + ", " + ticket.getCliente().getNombre());
 		ticketSystem.append("\\n DNI: " + ticket.getCliente().getDni());
-		ticketSystem.append("De" + ticket.getCiudadOrigen() + "\\n" + ticket.getCiudadDestino());
+		ticketSystem.append("De" + ticket.getPrecioPasaje().getVuelo().getOrigen() + "\\n" + ticket.getPrecioPasaje().getVuelo().getDestino());
 		ticketSystem.append("Avion: " + ticket.getX().getAvion().getId());
-		ticketSystem.append("Asiento " + ticket.getX().getNumeroAsiento());
+		ticketSystem.append("Asiento " + ticket.getX().getId());
 		System.out.print(ticketSystem);
 	}
 
