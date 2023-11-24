@@ -3,7 +3,6 @@
  */
 package com.example.AeropuertoSV.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,26 +23,18 @@ public class Ticket {
 	@OneToOne
 	@JoinColumn(name = "numeroAsiento")
 	@JoinColumn(name = "avion")
-	private AsientoAvionId x;
-	@OneToOne
-	@Column(name="From")
-	private Ciudad ciudadOrigen;
-	@OneToOne
-	@Column(name="To")
-	private Ciudad ciudadDestino;
+	private Asiento x;
 	//las XD
 	@OneToOne
 	@JoinColumn(name = "precioFinal")
 	private Pasaje precioPasaje;
 	
-	public Ticket(long id, Cliente cliente, AsientoAvionId x, Ciudad ciudadOrigen, Ciudad ciudadDestino,
-			Pasaje precioPasaje) {
+	
+	public Ticket(long id, Cliente cliente, Asiento x, Pasaje precioPasaje) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.x = x;
-		this.ciudadOrigen = ciudadOrigen;
-		this.ciudadDestino = ciudadDestino;
 		this.precioPasaje = precioPasaje;
 	}
 	public Ticket() {
@@ -62,24 +53,13 @@ public class Ticket {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public AsientoAvionId getX() {
+	public Asiento getX() {
 		return x;
 	}
-	public void setX(AsientoAvionId x) {
+	public void setX(Asiento x) {
 		this.x = x;
 	}
-	public Ciudad getCiudadOrigen() {
-		return ciudadOrigen;
-	}
-	public void setCiudadOrigen(Ciudad ciudadOrigen) {
-		this.ciudadOrigen = ciudadOrigen;
-	}
-	public Ciudad getCiudadDestino() {
-		return ciudadDestino;
-	}
-	public void setCiudadDestino(Ciudad ciudadDestino) {
-		this.ciudadDestino = ciudadDestino;
-	}
+
 	public Pasaje getPrecioPasaje() {
 		return precioPasaje;
 	}

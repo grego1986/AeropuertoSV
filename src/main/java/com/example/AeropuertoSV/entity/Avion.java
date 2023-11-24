@@ -15,6 +15,8 @@ public class Avion {
 
 	@Id
 	private Long id;
+	@Column(name="Nombre")
+	private String nombre;
 	@Column(name = "fila")
 	private Integer fila;
 	@Column(name = "columna")
@@ -28,14 +30,19 @@ public class Avion {
 		super();
 	}
 
-	public Avion(Long id, Integer fila, Integer columna, List<Asiento> asientos, List<Vuelo> vuelos) {
+	
+
+	public Avion(Long id, String nombre, Integer fila, Integer columna, List<Asiento> asientos, List<Vuelo> vuelos) {
 		super();
 		this.id = id;
+		this.nombre = nombre;
 		this.fila = fila;
 		Columna = columna;
 		this.asientos = asientos;
 		this.vuelos = vuelos;
 	}
+
+
 
 	public long getId() {
 		return id;
@@ -79,6 +86,18 @@ public class Avion {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }
