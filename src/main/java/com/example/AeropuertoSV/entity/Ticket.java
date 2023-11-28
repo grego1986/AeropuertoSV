@@ -24,18 +24,16 @@ public class Ticket {
 	@JoinColumn(name = "numeroAsiento")
 	@JoinColumn(name = "avion")
 	private Asiento x;
-	//las XD
 	@OneToOne
-	@JoinColumn(name = "precioFinal")
-	private Pasaje precioPasaje;
-	
-	
-	public Ticket(long id, Cliente cliente, Asiento x, Pasaje precioPasaje) {
+	@JoinColumn(name="id_Pasaje")
+	private Pasaje pasaje;
+
+	public Ticket(long id, Cliente cliente, Asiento x, Pasaje pasaje) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.x = x;
-		this.precioPasaje = precioPasaje;
+		this.pasaje = pasaje;
 	}
 	public Ticket() {
 		super();
@@ -59,13 +57,13 @@ public class Ticket {
 	public void setX(Asiento x) {
 		this.x = x;
 	}
+	public Pasaje getPasaje() {
+		return pasaje;
+	}
+	public void setPasaje(Pasaje pasaje) {
+		this.pasaje = pasaje;
+	}
 
-	public Pasaje getPrecioPasaje() {
-		return precioPasaje;
-	}
-	public void setPrecioPasaje(Pasaje precioPasaje) {
-		this.precioPasaje = precioPasaje;
-	}
 	
 
 
