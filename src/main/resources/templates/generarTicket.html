@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Aeropuerto Sauce Viejo </title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/Style.css}">
+
+</head>
+
+<body>
+	<h1>Emisión de Ticket</h1>
+	<form th:action="@{/generarTicket}" th:object="${formVuelo}" method="get">
+		<p th:text="${'Cliente: ' + cliente.nombre + ' ' + cliente.apellido}"></p>
+		<p th:text="${'DNI:' + cliente.dni}"></p>
+		<select id="vueloId" th:name="vueloId" th:field="*{id_vuelo}">
+			<option value="" disabled selected>Seleccione el vuelo</option>
+			<option th:each="vuelo : ${vuelos}" th:value="${vuelo.idVuelo}"
+				th:text="${vuelo.nVuelo + '|' + vuelo.origen.nombre + '-' + vuelo.destino.nombre}"
+				th:selected="${formVuelo.id_vuelo == vuelo.idVuelo}"></option>
+		</select>
+		-->
+	</form>
+	<form th:action="@{generarTicket/mAsientosDisponibles}" th:object="${formVUelo}" method="post">
+		<select id="as" th:name="selectAsientos" th:field="*{id}">
+			<option value="" disabled selected>Seleccione un asiento</option>
+			<option th:each="a : ${asientos}" th:value="${a.id}" th:text="${'Asiento:' + a.id}"></option>
+		</select>
+	</form>
+	<p th:text="*{id_vuelo}"></p>
+
+</body>
+
+</html>
