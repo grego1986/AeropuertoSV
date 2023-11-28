@@ -12,7 +12,7 @@ import com.example.AeropuertoSV.entity.Asiento;
 public interface ITicketService {
 	public void cargarTicket(Ticket ticket);
 	public void eliminarTicket(Ticket ticket);
-	public List<Asiento> getAsientos(Ciudad origen, Ciudad localidad);
+
 	public void emitirTicket(Ticket ticket);
-	public boolean checkCliente(Cliente c);
+
 }
