@@ -44,13 +44,12 @@ public class Avion {
 
 
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+
 
 	public Integer getFila() {
 		return fila;
@@ -100,4 +99,12 @@ public class Avion {
 		this.nombre = nombre;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return String.valueOf(id);
+	}
+
+	
 }

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="row ccontainerfluid">
+    <div class="row containerfluid">
         <div class="col-4">
 
         </div>
@@ -26,64 +26,98 @@
     </div>
 
     <div class="row ccontainerfluid">
-        <div class="col-4">
+        <div class="col-3">
 
         </div>
 
-        <div class="col-4">
-            <form th:action="@{/registroVuelo}" th:oject="${formBean}" method="get">
+        <div class="col-6">
+            <form th:action="@{/registroVuelo.html}" th:object="${formBean}" method="post">
 
+                <div class="row containerfluid">
+                    <div class="col-4">
 
-                <label>Número de Vuelo:</label>
-                <input type="text" th:field="*{nVuelo}" />
+                    </div>
+                    <div class="col-4">
+                        <label>Número de Vuelo:</label>
+                        <input type="text" th:field="*{nVuelo}" />
+                        <input type="submit" class="btn" name="action" value="verificar"></input>
+                    </div>
+                    <div class="col-4">
+						<br>
+                         
+                    </div>
+
+                </div>
                 <br>
 
-
-                <label>Fecha:</label>
-                <input type="date" th:field="*{fecha}" />
+                <div class="row containerfluid">
+                    <div class="col-6">
+                        <label>Fecha:</label>
+                        <input type="date" th:field="*{fecha}" />
+                    </div>
+                    <div class="col-6">
+                        <label>Hora:</label>
+                        <input type="time" th:field="*{hora}" />
+                    </div>
+                </div>
                 <br>
-
-
-                <label>Hora:</label>
-                <input type="time" th:field="*{hora}" />
-                <br>
-
-
-                <label>Origen:</label>
-                <select class="form-select form-select-lg mb-3" aria-label="Large select example" th:field="*{origen}">
-                    <option th:each="ciudad : ${ciudadOrigen}" th:value="${ciudad}" th:text="${ciudad.nombre}"></option>
-                  </select>
                 
-                <label>Destino:</label>
-                <select class="form-select form-select-lg mb-3" aria-label="Large select example" th:field="*{destino}">
-                    <option th:each="ciudad : ${ciudadDetino}" th:value="${ciudad}" th:text="${ciudad.nombre}"></option>
-                  </select>
-
-
-                <label>Estado:</label>
-                <input type="text" th:field="*{estado}" />
+                <div class="row containerfluid">
+					
+                   <div class="col-6">
+					   <label>Origen:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label="Large select example"
+                            th:field="*{origen}">
+                            <option value="" disabled selected>Elige una Ciudad</option>
+                            <option th:each="ciudad : ${ciudadOrigen}" th:value="${ciudad.id}"
+                                th:text="${ciudad.nombre}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-6">
+						<label>Destino:</label>
+                        <select class="form-select form-select-lg mb-3" aria-label="Large select example"
+                            th:field="*{destino}">
+                            <option value="" disabled selected>Elige una Ciudad</option>
+                            <option th:each="ciudad : ${ciudadDetino}" th:value="${ciudad.id}"
+                                th:text="${ciudad.nombre}">
+                            </option>
+                        </select>
+                    </div>
+                </div>                
+                
+                <div class="row containerfluid">
+					<label>Avion:</label>
+                    <div class="col-12">
+                        <select class="form-select form-select-lg mb-3" aria-label="Large select example"
+                            th:field="*{avionAsignado}">
+                            <option value="" disabled selected>Elige un Avion</option>
+                            <option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
                 <br>
+                <div class="row containerfluid">
+                    <div class="col-4">
 
-
-                <label>Avión Asignado:</label>
-                <select th:field="*{avionAsignado}">
-                    <option th:each="avion : ${aviones}" th:value="${avion}" th:text="${avion.nombre}"></option>
-                </select>
-                <br>
-
-
-                <button type="submit" class="btn btn-primary">Guardar Vuelo</button>
-                <button type="submit" class="btn btn-secondary">Volver</button>
-
+                    </div>
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-primary" name="action" value="guardar"></input>
+                    </div>
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-secondary" name="action" value="volver"></input>
+                    </div>
+                </div>
             </form>
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
 
         </div>
 
     </div>
-
 
 </body>
 

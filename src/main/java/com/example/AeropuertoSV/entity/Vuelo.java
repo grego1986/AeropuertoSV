@@ -45,13 +45,11 @@ public abstract class Vuelo {
 	private Avion avionAsignado;
 
 	public Vuelo() {
-		super();
 	}
 
-	public Vuelo(Long idVuelo, String nVuelo, LocalDate fecha, LocalTime hora, Ciudad origen, Ciudad destino,
+	public Vuelo(String nVuelo, LocalDate fecha, LocalTime hora, Ciudad origen, Ciudad destino,
 			List<Pasaje> pasajes, String estado, Avion avion) {
 		super();
-		this.idVuelo = idVuelo;
 		this.nVuelo = nVuelo;
 		this.fecha = fecha;
 		this.hora = hora;

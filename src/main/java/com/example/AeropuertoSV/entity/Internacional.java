@@ -16,7 +16,6 @@ public class Internacional extends Vuelo {
 	
 	
 	public Internacional() {
-		super();
 	}
 
 

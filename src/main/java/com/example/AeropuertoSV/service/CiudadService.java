@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.AeropuertoSV.entity.Ciudad;
+import com.example.AeropuertoSV.entity.Pais;
 import com.example.AeropuertoSV.repository.ICiudadRepository;
 
 @Service
@@ -40,6 +41,11 @@ public class CiudadService implements ICiudadService {
 	@Override
 	public Ciudad consultarCiudad(Integer id) {
 		return ciudadRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Ciudad> obtenerLocalidadesPorPais(Pais pais) {
+		return ciudadRepo.findByPais(pais);
 	}
 
 }

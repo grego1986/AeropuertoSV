@@ -4,16 +4,24 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
+
 public class RegistroVueloForm {
 
 
 	private String nVuelo;
 	private LocalDate fecha;
 	private LocalTime hora;
-	private String origen;
-	private String destino;
+	private Integer paisOrigen;
+	private Integer origen;
+	private Integer paisDestino;
+	private Integer destino;
 	private String estado;
-	private String avionAsignado;
+	private Long avionAsignado;
+	
+		
+	public RegistroVueloForm() {
+		super();
+	}
 	
 	public String getnVuelo() {
 		return nVuelo;
@@ -33,16 +41,16 @@ public class RegistroVueloForm {
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
-	public String getOrigen() {
+	public Integer getOrigen() {
 		return origen;
 	}
-	public void setOrigen(String origen) {
+	public void setOrigen(Integer origen) {
 		this.origen = origen;
 	}
-	public String getDestino() {
+	public Integer getDestino() {
 		return destino;
 	}
-	public void setDestino(String destino) {
+	public void setDestino(Integer destino) {
 		this.destino = destino;
 	}
 	public String getEstado() {
@@ -51,13 +59,39 @@ public class RegistroVueloForm {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public String getAvionAsignado() {
+	
+	
+	public Long getAvionAsignado() {
 		return avionAsignado;
 	}
-	public void setAvionAsignado(String avionAsignado) {
+
+	public void setAvionAsignado(Long avionAsignado) {
 		this.avionAsignado = avionAsignado;
 	}
-	
+
+	public Integer getPaisOrigen() {
+		return paisOrigen;
+	}
+
+	public void setPaisOrigen(Integer paisOrigen) {
+		this.paisOrigen = paisOrigen;
+	}
+
+	public Integer getPaisDestino() {
+		return paisDestino;
+	}
+
+	public void setPaisDestino(Integer paisDestino) {
+		this.paisDestino = paisDestino;
+	}
+
+	@Override
+	public String toString() {
+		return "RegistroVueloForm [nVuelo=" + nVuelo + ", fecha=" + fecha + ", hora=" + hora + ", paisOrigen="
+				+ paisOrigen + ", origen=" + origen + ", paisDestino=" + paisDestino + ", destino=" + destino
+				+ ", estado=" + estado + ", avionAsignado=" + avionAsignado + "]";
+	}
+
 	
 	
 }

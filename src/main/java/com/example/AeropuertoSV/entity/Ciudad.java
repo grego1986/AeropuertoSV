@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -24,6 +26,9 @@ public class Ciudad {
 	private List<Vuelo> vuelosDestino;
 	@OneToMany(mappedBy = "origen", cascade = CascadeType.ALL)
 	private List<Vuelo> vuelosOrigen;
+	@ManyToOne
+	@JoinColumn(name = "pais_ciudad")
+	private Pais pais;
 	
 	public Ciudad() {
 		super();
@@ -79,9 +84,19 @@ public class Ciudad {
 	}
 
 
+	public Pais getPais() {
+		return pais;
+	}
+
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Ciudad [nombre=" + nombre + "]";
+	    return String.valueOf(id);
 	}
 	
 	

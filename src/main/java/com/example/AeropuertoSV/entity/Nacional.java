@@ -1,5 +1,6 @@
 package com.example.AeropuertoSV.entity;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
