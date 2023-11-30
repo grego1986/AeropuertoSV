@@ -12,25 +12,69 @@
 
 <body>
 	<h1>Emisión de Ticket</h1>
-	<form th:action="@{/generarTicket}" th:object="${formVuelo}" method="get">
-		<p th:text="${'Cliente: ' + cliente.nombre + ' ' + cliente.apellido}"></p>
-		<p th:text="${'DNI:' + cliente.dni}"></p>
-		<select id="vueloId" th:name="vueloId" th:field="*{id_vuelo}">
-			<option value="" disabled selected>Seleccione el vuelo</option>
+	<!-- Formulario principal 
+	<form th:action="@{/generarTicket/AsientosDisponibles}" th:object="${formVuelo}"method="post">
+		<input type="text" th:name="dni" th:value="${dni}" readonly />
+
+		<select th:name="idVuelo" required>
+			<option value="" disabled selected>Seleccione un vuelo</option>
 			<option th:each="vuelo : ${vuelos}" th:value="${vuelo.idVuelo}"
-				th:text="${vuelo.nVuelo + '|' + vuelo.origen.nombre + '-' + vuelo.destino.nombre}"
-				th:selected="${formVuelo.id_vuelo == vuelo.idVuelo}"></option>
+				th:text="${vuelo.nVuelo + '|' + vuelo.origen.nombre + '-' + vuelo.destino.nombre}" th:selected="${formVuelo.id_vuelo==vuelo.idVuelo}"></option>
 		</select>
-		-->
+		<button type="submit">DDD</button>
+
+		<a th:href="@{'/generarTicket?dni=' + dni}">Atrás</a>
 	</form>
-	<form th:action="@{generarTicket/mAsientosDisponibles}" th:object="${formVUelo}" method="post">
-		<select id="as" th:name="selectAsientos" th:field="*{id}">
+
+		<form th:action="@{/generarTicket/AsientosDisponibles}" th:object="${formVuelo}" method="post">
+			<p
+				th:text="${'Vuelo Seleccionado: ' + formVuelo.nVuelo + '|' + formVuelo.cOrigen + ' a ' + formVuelo.cDestino}">
+			</p>
+			<select th:name="asiento" required>
+				<option value="" disabled selected>Seleccione un asiento</option>
+				<option th:each="asiento : ${asientos}" th:value="${asiento.id}" th:text="${asiento.id}" />
+			</select>
+			<button type="submit">XDXD</button>
+
+			<a th:href="@{'/generarTicket?dni=' + dni}">Atrás</a>
+		</form>
+-->
+	<!-- Formulario de Selección de Vuelo -->
+	<form th:action="@{/generarTicket/seleccionarVuelo}" th:object="${formVuelo}" method="get">
+		<input type="text" th:name="dni" th:value="${dni}" readonly />
+
+		<select th:name="idVuelo" required th:field="*{id_vuelo}">
+			<option value="" disabled selected>Seleccione un vuelo</option>
+			<option th:each="vuelo : ${vuelos}" th:value="${vuelo.idVuelo}"
+				th:text="${vuelo.nVuelo + '|' + vuelo.origen.nombre + '-' + vuelo.destino.nombre}"></option>
+		</select>
+
+		<!-- Utiliza un botón de tipo submit para enviar el formulario -->
+		<button type="submit">Seleccionar Vuelo</button>
+	</form>
+	<!-- Formulario de Selección de Asiento -->
+	<form th:action="@{/generarTicket/seleccionarAsiento}" th:object="${formVuelo}" method="get">
+		<input type="hidden" th:name="dni" th:value="${dni}" />
+		<input type="hidden" th:name="idVuelo" th:value="${formVuelo.id_vuelo}" />
+		<!-- Mostrar información del vuelo seleccionado -->
+		<p
+			th:text="${'Vuelo Seleccionado: ' + formVuelo.nVuelo + '|' + formVuelo.cOrigen + ' a ' + formVuelo.cDestino}">
+		</p>
+
+		<!-- Selección de asiento -->
+		<select th:name="asiento" required th:field="*{idAsiento}">
 			<option value="" disabled selected>Seleccione un asiento</option>
-			<option th:each="a : ${asientos}" th:value="${a.id}" th:text="${'Asiento:' + a.id}"></option>
+			<option th:each="asiento : ${asientos}" th:value="${asiento.id}" th:text="${asiento.id}"></option>
 		</select>
+
+		<!-- Botón de envío -->
+		<button type="submit">Seleccionar Asiento</button>
+
+		<!-- Enlace para regresar -->
+		<a th:href="@{'/generarTicket?dni=' + dni}">Atrás</a>
 	</form>
-	<p th:text="*{id_vuelo}"></p>
 
 </body>
+
 
 </html>
