@@ -28,48 +28,82 @@ public class TicketController {
 	private TicketService ticketS;
 	@Autowired
 	private ClienteService clienteS;
+
 	@Autowired
 	private VueloService vueloS;
+
 	@Autowired
 	private AsientoService asientoS;
 
 	@GetMapping
-	public String showForm(@RequestParam String dni, Model model) {
+	public String show(@RequestParam String dni, Model model) {
 		formVuelo fVuelo = new formVuelo();
-		// Logic to retrieve customer data based on DNI
 		Cliente cliente = clienteS.consultarCliente(Long.parseLong(dni));
-
-		// Logic to retrieve available flights and seats
-		List<Vuelo> vuelos = vueloS.getAll();
 		model.addAttribute("dni", dni);
-		model.addAttribute("formVuelo",fVuelo);
-		// Add data to the model
+		model.addAttribute("formVuelo", fVuelo);
 		model.addAttribute("cliente", cliente);
-		model.addAttribute("vuelos", vuelos);
-		System.out.print(fVuelo.getId_vuelo());
+		model.addAttribute("vuelos", vueloS.vuelosConAsientosDisponibles());
 		return "generarTicket";
 	}
 
-	@PostMapping("/mAsientosDisponibles")
-	public String mostrarAsientosDisponibles(formVuelo fVuelo, Model model) {
-		model.addAttribute("formVuelo", fVuelo);
-		System.out.print(fVuelo.getId_vuelo());
+	@GetMapping("/seleccionarVuelo")
+	public String seleccionarVuelo(@RequestParam String dni,formVuelo fVuelo, Model model) {
+		Cliente cliente = clienteS.consultarCliente(Long.parseLong(dni));
+		// Obtener el vuelo seleccionado
+		Vuelo vueloSeleccionado = obtenerVueloSeleccionado(fVuelo.getId_vuelo());
+		
+		// Obtener la lista de asientos disponibles para el vuelo seleccionado
+		List<Asiento> asientosDisponibles = obtenerAsientosDisponibles(vueloSeleccionado);
 
-		Vuelo vSeleccionado = vueloS.consultarVuelo(fVuelo.getId_vuelo());
-
-		List<Asiento> asientosDisponibles = new ArrayList<>();
-		for (Asiento asiento : asientoS.getAll()) {
-			if (asiento.getAvion().equals(vSeleccionado.avionAsignado)) {
-				if (asiento.isDisiponible()) {
-					asientosDisponibles.add(asiento);
-				}
-			}
-		}
-
-		model.addAttribute("vueloSeleccionado", vSeleccionado);
+		// Agregar atributos al modelo
+		model.addAttribute("dni", dni);
+		model.addAttribute("cliente", cliente);
+		model.addAttribute("vueloSeleccionado", vueloSeleccionado);
 		model.addAttribute("asientos", asientosDisponibles);
-		System.out.print(vSeleccionado.toString());
+		model.addAttribute("isInAsientosDisponiblesPage", true);
 
 		return "generarTicket";
+	}
+
+	@GetMapping("/seleccionarAsiento")
+	public String seleccionarAsiento(@RequestParam String dni, @ModelAttribute formVuelo fVuelo, Model model) {
+		System.out.println("ID del vuelo: " + fVuelo.getId_vuelo()); // Agrega este log para verificar el ID del vuelo
+		Vuelo vSeleccionado = vueloS.consultarVuelo(fVuelo.getId_vuelo());
+
+		// Obtener la lista de asientos disponibles para el vuelo seleccionado
+		List<Asiento> asientosDisponibles = obtenerAsientosDisponibles(vSeleccionado);
+
+		// Agregar atributos al modelo
+		model.addAttribute("dni", dni);
+		model.addAttribute("vueloSeleccionado", vSeleccionado);
+		model.addAttribute("asiento", asientosDisponibles);
+
+		return "generarTicket";
+	}
+	@GetMapping("/printTicket")
+	public String imprimirsalvar( @ModelAttribute Ticket ticket, String dni, Vuelo vSeleccionado, Model model) {
+		// Agrega los datos al modelo
+	    model.addAttribute("ticket", ticket);
+	    model.addAttribute("cliente", clienteS.consultarCliente(Long.parseLong(dni)));
+	    model.addAttribute("dni", dni); // Reemplaza con tu lógica real
+	    model.addAttribute("vuelo", vSeleccionado);
+	   // model.addAttribute("asiento", aSeleccionado);
+
+	    return "ticketGenerado";
+	}	
+	// Método para obtener el vuelo seleccionado
+	private Vuelo obtenerVueloSeleccionado(Long idVuelo) {
+		return vueloS.consultarVuelo(idVuelo);
+	}
+
+	// Método para obtener la lista de asientos disponibles para un vuelo
+	private List<Asiento> obtenerAsientosDisponibles(Vuelo vuelo) {
+		List<Asiento> asientosDisponibles = new ArrayList<>();
+		for (Asiento asiento : asientoS.getAll()) {
+			if (asiento.getAvion().equals(vuelo.avionAsignado) && asiento.isDisponible()) {
+				asientosDisponibles.add(asiento);
+			}
+		}
+		return asientosDisponibles;
 	}
 }
