@@ -1,8 +1,6 @@
 package com.example.AeropuertoSV.controller;
 
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 //import java.util.List;
@@ -21,17 +19,15 @@ import com.example.AeropuertoSV.entity.Avion;
 import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Internacional;
 import com.example.AeropuertoSV.entity.Nacional;
-import com.example.AeropuertoSV.entity.Pasaje;
-import com.example.AeropuertoSV.entity.Vuelo;
 import com.example.AeropuertoSV.service.AvionService;
 import com.example.AeropuertoSV.service.CiudadService;
 import com.example.AeropuertoSV.service.InternacionalService;
 import com.example.AeropuertoSV.service.NacionalService;
-import com.example.AeropuertoSV.service.PaisService;
+
 
 
 @Controller
-@RequestMapping("/registroVuelo.html") // archivo html que se va a mapear
+@RequestMapping("/registroVuelo") // archivo html que se va a mapear
 public class RegistroVueloController {
 
 	@Autowired
@@ -131,6 +127,8 @@ public class RegistroVueloController {
 			
 		}
 	}
+	
+	
 	
 
 }

@@ -6,6 +6,7 @@ package com.example.AeropuertoSV.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
@@ -20,12 +21,11 @@ public class Ticket {
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	@OneToOne
-	@JoinColumn(name = "numeroAsiento")
-	@JoinColumn(name = "avion")
+	@ManyToOne
+    @JoinColumn(name = "asiento_id", referencedColumnName = "id")
 	private Asiento x;
 	@OneToOne
-	@JoinColumn(name="id_Pasaje")
+	@JoinColumn(name = "pasaje_id", referencedColumnName = "idPasaje")
 	private Pasaje pasaje;
 
 	public Ticket(long id, Cliente cliente, Asiento x, Pasaje pasaje) {

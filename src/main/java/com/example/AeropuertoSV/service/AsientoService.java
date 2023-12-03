@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.AeropuertoSV.entity.Asiento;
-import com.example.AeropuertoSV.entity.AsientoAvionId;
 import com.example.AeropuertoSV.repository.IAsientoRepository;
 
 @Service
@@ -30,7 +29,7 @@ public class AsientoService implements IAsientoService{
 	}
 
 	@Override
-	public void modificarAsiento(@RequestBody Asiento asiento, @PathVariable AsientoAvionId id) {
+	public void modificarAsiento(@RequestBody Asiento asiento, @PathVariable String id) {
 		if (asientoRepo.existsById(id)) {
             asiento.setId(id);
             asientoRepo.save(asiento);
@@ -45,7 +44,7 @@ public class AsientoService implements IAsientoService{
 	}
 
 	@Override
-	public Asiento consultarAsiento(AsientoAvionId id) {
+	public Asiento consultarAsiento(String id) {
 		return asientoRepo.findById(id).orElse(null);
 	}
 
