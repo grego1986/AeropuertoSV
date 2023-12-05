@@ -11,14 +11,13 @@ public class RegistroVueloForm {
 	private String nVuelo;
 	private LocalDate fecha;
 	private LocalTime hora;
-	private Integer paisOrigen;
 	private Integer origen;
-	private Integer paisDestino;
 	private Integer destino;
-	private String estado;
 	private Long avionAsignado;
+	private String existe;
+	private String tipoVuelo;
+	private Double precio;
 	
-		
 	public RegistroVueloForm() {
 		super();
 	}
@@ -53,13 +52,6 @@ public class RegistroVueloForm {
 	public void setDestino(Integer destino) {
 		this.destino = destino;
 	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
 	
 	public Long getAvionAsignado() {
 		return avionAsignado;
@@ -69,27 +61,30 @@ public class RegistroVueloForm {
 		this.avionAsignado = avionAsignado;
 	}
 
-	public Integer getPaisOrigen() {
-		return paisOrigen;
+	
+	
+	public String getExiste() {
+		return existe;
 	}
 
-	public void setPaisOrigen(Integer paisOrigen) {
-		this.paisOrigen = paisOrigen;
+	public void setExiste(String existe) {
+		this.existe = existe;
 	}
 
-	public Integer getPaisDestino() {
-		return paisDestino;
+	public String getTipoVuelo() {
+		return tipoVuelo;
 	}
 
-	public void setPaisDestino(Integer paisDestino) {
-		this.paisDestino = paisDestino;
+	public void setTipoVuelo(String tipoVuelo) {
+		this.tipoVuelo = tipoVuelo;
 	}
 
-	@Override
-	public String toString() {
-		return "RegistroVueloForm [nVuelo=" + nVuelo + ", fecha=" + fecha + ", hora=" + hora + ", paisOrigen="
-				+ paisOrigen + ", origen=" + origen + ", paisDestino=" + paisDestino + ", destino=" + destino
-				+ ", estado=" + estado + ", avionAsignado=" + avionAsignado + "]";
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 
 	

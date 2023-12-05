@@ -6,6 +6,6 @@ import com.example.AeropuertoSV.entity.Vuelo;
 
 
 @Repository
-public interface IVueloRepository extends JpaRepository<Vuelo, Long> {
+public interface IVueloRepository extends JpaRepository<Vuelo, String> {
 
 }

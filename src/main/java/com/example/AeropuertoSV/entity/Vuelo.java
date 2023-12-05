@@ -22,9 +22,9 @@ import jakarta.persistence.Table;
 public abstract class Vuelo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idVuelo;
-	@Column(name = "nroVuelo")
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//private Long idVuelo;
+	//@Column(name = "nroVuelo")
 	private String nVuelo;
 	@Column(name = "fecha")
 	private LocalDate fecha;
@@ -60,13 +60,13 @@ public abstract class Vuelo {
 		this.avionAsignado = avion;
 	}
 
-	public long getIdVuelo() {
+/*	public long getIdVuelo() {
 		return idVuelo;
 	}
 
 	public void setIdVuelo(long idVuelo) {
 		this.idVuelo = idVuelo;
-	}
+	}*/
 
 	public String getnVuelo() {
 		return nVuelo;
@@ -116,9 +116,9 @@ public abstract class Vuelo {
 		this.estado = estado;
 	}
 
-	public void setIdVuelo(Long idVuelo) {
+	/*public void setIdVuelo(Long idVuelo) {
 		this.idVuelo = idVuelo;
-	}
+	}*/
 
 	public List<Pasaje> getPasajes() {
 		return pasajes;

@@ -25,9 +25,9 @@ public class InternacionalService implements IInternacionalService {
 	}
 
 	@Override
-	public void modificarInternacional(@RequestBody Internacional internacional, @PathVariable Long id) {
+	public void modificarInternacional(@RequestBody Internacional internacional, @PathVariable String id) {
 		if (internRepo.existsById(id)) {
-            internacional.setIdVuelo(id);
+            internacional.setnVuelo(id);
             internRepo.save(internacional);
         }
 		
@@ -39,7 +39,7 @@ public class InternacionalService implements IInternacionalService {
 	}
 
 	@Override
-	public Internacional consultarInternacional(Long id) {
+	public Internacional consultarInternacional(String id) {
 		return internRepo.findById(id).orElse(null);
 	}
 	

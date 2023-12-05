@@ -1,6 +1,5 @@
 package com.example.AeropuertoSV.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -19,6 +18,8 @@ public class Avion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column (name = "nombre")
+	private String nombre;
 	@Column(name = "fila")
 	private Integer fila;
 	@Column(name = "columna")
@@ -75,17 +76,7 @@ public class Avion {
 	public List<Vuelo> getVuelos() {
 		return vuelos;
 	}
-	public List<Asiento> cargarAsientos(){
-		List<Asiento> AsientoMatriz = new ArrayList<>();
-		for(int i=0; i<this.getFila().SIZE; i++) {
-			for(int j=0; j<this.getColumna().SIZE; j++) {
-				char f= (char) (j+97);
-				//Asiento x = 
-				AsientoMatriz.add(new Asiento(String.valueOf(f)+i,this,false));
-			}
-		}
-		return AsientoMatriz;
-	}
+	
 	public void setVuelos(List<Vuelo> vuelos) {
 		this.vuelos = vuelos;
 	}
@@ -94,4 +85,13 @@ public class Avion {
 		this.id = id;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	
 }

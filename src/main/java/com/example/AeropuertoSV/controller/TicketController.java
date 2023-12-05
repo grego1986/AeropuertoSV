@@ -24,7 +24,7 @@ import com.example.AeropuertoSV.service.VueloService;
 @Controller
 @RequestMapping("/generarTicket")
 public class TicketController {
-	@Autowired
+/*	@Autowired
 	private TicketService ticketS;
 	@Autowired
 	private ClienteService clienteS;
@@ -105,5 +105,5 @@ public class TicketController {
 			}
 		}
 		return asientosDisponibles;
-	}
+	}*/
 }

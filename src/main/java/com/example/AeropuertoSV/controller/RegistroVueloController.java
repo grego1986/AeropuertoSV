@@ -19,10 +19,12 @@ import com.example.AeropuertoSV.entity.Avion;
 import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Internacional;
 import com.example.AeropuertoSV.entity.Nacional;
+import com.example.AeropuertoSV.entity.Vuelo;
 import com.example.AeropuertoSV.service.AvionService;
 import com.example.AeropuertoSV.service.CiudadService;
 import com.example.AeropuertoSV.service.InternacionalService;
 import com.example.AeropuertoSV.service.NacionalService;
+import com.example.AeropuertoSV.service.VueloService;
 
 
 
@@ -38,27 +40,29 @@ public class RegistroVueloController {
 	private NacionalService nacionalServi;
 	@Autowired
 	private InternacionalService internacionalServi;
+	@Autowired
+	private VueloService vuelo;
+	
+	private Validaciones validar = new Validaciones();
 	
 	RegistroVueloForm form = new RegistroVueloForm();
+	FormPrecio fprecio = new FormPrecio();
 
 	@GetMapping
 	public String abrirRegistroVuelo(Model modelo) {
-
-		
+	
 		modelo.addAttribute("formBean", form);
 		modelo.addAttribute("nVuelo", form);
 		modelo.addAttribute("fecha", form);
 		modelo.addAttribute("hora", form);
-		
 		modelo.addAttribute("origen", form);
-		
 		modelo.addAttribute("destino", form);
-		
 		modelo.addAttribute("avionAsignado", form);
-		return "registroVuelo.html";
+		
+		return "registroVuelo";
 	}
-
-	
+		
+		
 	@ModelAttribute("ciudadOrigen")
 	public List<Ciudad> origen() {
 		return ciudadServi.getAll();
@@ -75,26 +79,62 @@ public class RegistroVueloController {
 		return avionServi.getAll();
 	}
 	
+	@ModelAttribute("existe")
+	public String existe () {
+		return form.getExiste();
+	}
 	
-
+	@ModelAttribute("tipoVuelo")
+	public String tipo () {
+		return form.getTipoVuelo();
+	}
+	
 	@PostMapping
 	public String registrar(@ModelAttribute("formBean") RegistroVueloForm registro, ModelMap modelo, @RequestParam String action) {
-		
-		System.out.println("aca estoy");
+		String redirecionar = null;
 		
 		if(action.equals("verificar")) {
-			return "redirect:/vuelosRegistrados.html";
-		}else if(action.equals("guardar")) {
-		    cargar(registro);
-			modelo.clear();
-
-			return "redirect:/registroVuelo.html";
-		}else /*if(action.equals("volver"))*/ {
-			modelo.clear();
-			return "redirect:/";
+		    	if (vuelo.consultarVuelo(registro.getnVuelo()) != null) {
+		    		form.setExiste("El numero de vuelo ya existe.");
+		    		modelo.replace("existe", form.getExiste());
+		    		
+		    	} else {
+		    		
+		    		form.setExiste("El numero de Vuelo se encuentra disponible.");
+		    		modelo.replace("existe", form.getExiste());	    		
+		    	}
+		    	
 		}
 		
+		if(action.equals("guardar")) {
+			
+			if (vuelo.consultarVuelo(registro.getnVuelo()) != null) {
+	    		modelo.clear();
+	    		
+	    	    form.setExiste("El numero de vuelo ya existe.");
+	    	    modelo.replace("existe", form.getExiste());
+	    	    redirecionar = "registroVuelo";
+	    	} else {
+	    		cargar(registro);
+			    modelo.clear();
+	    	}
+		   
+
+			redirecionar = "redirect:/registroVuelo.html";
+		}
+		
+		if(action.equals("volver")) {
+			modelo.clear();
+			redirecionar = "redirect:/";
+		}
+		
+		if (action.equals("vueloTipo")) {
+			modelo.replace("tipoVuelo", vuelo(registro));
+		}
+		
+		return redirecionar;
 	}
+	
 	
 	
 	public void cargar (RegistroVueloForm rvf) {
@@ -102,7 +142,7 @@ public class RegistroVueloController {
 		Ciudad cDestino = ciudadServi.consultarCiudad(rvf.getDestino());
 	
 		if (cOrigen.getPais().equals(cDestino.getPais())) {
-			Nacional nacional = new Nacional (0, 0);
+			Nacional nacional = new Nacional ();
 			nacional.setnVuelo(rvf.getnVuelo());
 			nacional.setFecha(rvf.getFecha());
 			nacional.setHora(rvf.getHora());
@@ -110,6 +150,7 @@ public class RegistroVueloController {
 			nacional.setDestino(cDestino);
 			nacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
 			nacional.setEstado("Normal");
+			nacional.setPrecio(rvf.getPrecio());
 			
 			nacionalServi.cargarNacional(nacional);
 			
@@ -126,6 +167,21 @@ public class RegistroVueloController {
 			internacionalServi.cargarInternacional(internacional);
 			
 		}
+	}
+	
+	
+	public String vuelo (RegistroVueloForm rvf) {
+		Ciudad cOrigen = ciudadServi.consultarCiudad(rvf.getOrigen());
+		Ciudad cDestino = ciudadServi.consultarCiudad(rvf.getDestino());
+		String tipo = null;
+		
+		if (cOrigen.getPais().equals(cDestino.getPais())) {
+			tipo = "Vuelo Nacional";
+		} else {
+			tipo = "Vuelo Internacional";
+		}
+		
+		return tipo;
 	}
 	
 	

@@ -28,9 +28,9 @@ public class NacionalService implements INacionalService {
 	}
 
 	@Override
-	public void modificarNacional( @RequestBody Nacional nacional,@PathVariable Long id) {
+	public void modificarNacional( @RequestBody Nacional nacional,@PathVariable String id) {
 		if (nacionalRepo.existsById(id)) {
-            nacional.setIdVuelo(id);
+            nacional.setnVuelo(id);
             nacionalRepo.save(nacional);
         }		
 	}
@@ -41,7 +41,7 @@ public class NacionalService implements INacionalService {
 	}
 
 	@Override
-	public Nacional consultarNacional(Long id) {
+	public Nacional consultarNacional(String id) {
 		return nacionalRepo.findById(id).orElse(null);
 	}
 	

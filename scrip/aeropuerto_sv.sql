@@ -34,15 +34,15 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `aeropuerto_sv`.`asientos`
+-- Table `aeropuerto_sv`.`asientos_aviones`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`asientos` (
+CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`asientos_aviones` (
   `id` VARCHAR(255) NOT NULL,
   `disponible` BIT(1) NULL DEFAULT NULL,
   `avion_id` BIGINT NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `FKpidssyn3t26r7ep45h3ov561` (`avion_id` ASC),
-  CONSTRAINT `FKpidssyn3t26r7ep45h3ov561`
+  INDEX `FKqhjyd1s4si5kudxx9yu3jtr3` (`avion_id` ASC),
+  CONSTRAINT `FKqhjyd1s4si5kudxx9yu3jtr3`
     FOREIGN KEY (`avion_id`)
     REFERENCES `aeropuerto_sv`.`aviones` (`id`))
 ENGINE = InnoDB
@@ -99,15 +99,14 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `aeropuerto_sv`.`vuelos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`vuelos` (
-  `id_vuelo` BIGINT NOT NULL AUTO_INCREMENT,
+  `n_vuelo` VARCHAR(255) NOT NULL,
   `estado` VARCHAR(255) NULL DEFAULT NULL,
   `fecha` DATE NULL DEFAULT NULL,
   `hora` TIME NULL DEFAULT NULL,
-  `nro_vuelo` VARCHAR(255) NULL DEFAULT NULL,
   `avion_asignado` BIGINT NULL DEFAULT NULL,
   `ciudad_destino` INT NULL DEFAULT NULL,
   `ciudad_origen` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`id_vuelo`),
+  PRIMARY KEY (`n_vuelo`),
   INDEX `FKirk1kyhpnneccfm851408q0tp` (`avion_asignado` ASC),
   INDEX `FK4sv51m9yjrxs4nqqropq158xa` (`ciudad_destino` ASC),
   INDEX `FK1ax28yasqhf9v3e0lnolxasl5` (`ciudad_origen` ASC),
@@ -126,16 +125,48 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `aeropuerto_sv`.`tasa_internacional`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`tasa_internacional` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `dolar` DOUBLE NULL DEFAULT NULL,
+  `iva` DOUBLE NULL DEFAULT NULL,
+  `tasa` DOUBLE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `aeropuerto_sv`.`internacionales`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`internacionales` (
   `precio` DOUBLE NULL DEFAULT NULL,
+  `n_vuelo` VARCHAR(255) NOT NULL,
+  `id_tasa` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`n_vuelo`),
+  INDEX `FKse5kb73fj7n48c5g89d3sqdw9` (`id_tasa` ASC),
+  CONSTRAINT `FKi913ksnra9ant6f6k45pix93i`
+    FOREIGN KEY (`n_vuelo`)
+    REFERENCES `aeropuerto_sv`.`vuelos` (`n_vuelo`),
+  CONSTRAINT `FKse5kb73fj7n48c5g89d3sqdw9`
+    FOREIGN KEY (`id_tasa`)
+    REFERENCES `aeropuerto_sv`.`tasa_internacional` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `aeropuerto_sv`.`tasa_nacional`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`tasa_nacional` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `iva` DOUBLE NULL DEFAULT NULL,
+  `precio` DOUBLE NULL DEFAULT NULL,
   `tasa` DOUBLE NULL DEFAULT NULL,
-  `id_vuelo` BIGINT NOT NULL,
-  PRIMARY KEY (`id_vuelo`),
-  CONSTRAINT `FKfx0sd59m3gxok9c0xyokuyv38`
-    FOREIGN KEY (`id_vuelo`)
-    REFERENCES `aeropuerto_sv`.`vuelos` (`id_vuelo`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -146,12 +177,16 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`nacionales` (
   `precio` DOUBLE NULL DEFAULT NULL,
-  `tasa` DOUBLE NULL DEFAULT NULL,
-  `id_vuelo` BIGINT NOT NULL,
-  PRIMARY KEY (`id_vuelo`),
-  CONSTRAINT `FKa4r4i1w1wg2covpt3bjs8xnom`
-    FOREIGN KEY (`id_vuelo`)
-    REFERENCES `aeropuerto_sv`.`vuelos` (`id_vuelo`))
+  `n_vuelo` VARCHAR(255) NOT NULL,
+  `id_tasa` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`n_vuelo`),
+  INDEX `FKyo25bcnd6apcmn77760jck3j` (`id_tasa` ASC),
+  CONSTRAINT `FK74b61oe6749vonk9pf0kt6ae4`
+    FOREIGN KEY (`n_vuelo`)
+    REFERENCES `aeropuerto_sv`.`vuelos` (`n_vuelo`),
+  CONSTRAINT `FKyo25bcnd6apcmn77760jck3j`
+    FOREIGN KEY (`id_tasa`)
+    REFERENCES `aeropuerto_sv`.`tasa_nacional` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -164,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`pasajes` (
   `id_pasaje` BIGINT NOT NULL AUTO_INCREMENT,
   `precio_total` DOUBLE NULL DEFAULT NULL,
   `cliente_id` BIGINT NULL DEFAULT NULL,
-  `vuelo_id` BIGINT NULL DEFAULT NULL,
+  `vuelo_id` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id_pasaje`),
   INDEX `FK7p44jddxs6fpkc3b1uo38528` (`cliente_id` ASC),
   INDEX `FK83k3kj099oxb7r8bovhfpu9og` (`vuelo_id` ASC),
@@ -173,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`pasajes` (
     REFERENCES `aeropuerto_sv`.`clientes` (`dni`),
   CONSTRAINT `FK83k3kj099oxb7r8bovhfpu9og`
     FOREIGN KEY (`vuelo_id`)
-    REFERENCES `aeropuerto_sv`.`vuelos` (`id_vuelo`))
+    REFERENCES `aeropuerto_sv`.`vuelos` (`n_vuelo`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -208,16 +243,16 @@ CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`tickets` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `UK_rkavvwbijd86sxebbemtdxiht` (`cliente_id` ASC),
   UNIQUE INDEX `UK_qqjegc9utry0gpixw9ql8yng2` (`pasaje_id` ASC),
-  INDEX `FKiso4guqfqd9nqae9ou5gdkicq` (`asiento_id` ASC),
+  INDEX `FKsw4du2vel0094r1ed4wovdb8` (`asiento_id` ASC),
   CONSTRAINT `FK2f0q7f90k3mqx8x6rvy1emc40`
     FOREIGN KEY (`cliente_id`)
     REFERENCES `aeropuerto_sv`.`clientes` (`dni`),
   CONSTRAINT `FK5o51wugjd7wivkuyahtnyqicg`
     FOREIGN KEY (`pasaje_id`)
     REFERENCES `aeropuerto_sv`.`pasajes` (`id_pasaje`),
-  CONSTRAINT `FKiso4guqfqd9nqae9ou5gdkicq`
+  CONSTRAINT `FKsw4du2vel0094r1ed4wovdb8`
     FOREIGN KEY (`asiento_id`)
-    REFERENCES `aeropuerto_sv`.`asientos` (`id`))
+    REFERENCES `aeropuerto_sv`.`asientos_aviones` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -229,7 +264,7 @@ INSERT INTO `aeropuerto_sv`.`aviones` (`fila`, `columna`, `nombre`) VALUES
 (12, 8, 'Avion3');
 
 -- Insertar datos en la tabla `asientos`
-INSERT INTO `aeropuerto_sv`.`asientos` (`id`, `disponible`, `avion_id`) VALUES
+INSERT INTO `aeropuerto_sv`.`asientos_aviones` (`id`, `disponible`, `avion_id`) VALUES
 ('1-A1', true, 1),('1-A2', true, 1),('1-A3', true, 1),('1-A4', true, 1),('1-A5', true, 1),('1-A6', true, 1),('1-A7', true, 1),('1-A8', true, 1),('1-A9', true, 1),('1-A10', true, 1),
 ('1-B1', true, 1),('1-B2', true, 1),('1-B3', true, 1),('1-B4', true, 1),('1-B5', true, 1),('1-B6', true, 1),('1-B7', true, 1),('1-B8', true, 1),('1-B9', true, 1),('1-B10', true, 1),
 ('1-C1', true, 1),('1-C2', true, 1),('1-C3', true, 1),('1-C4', true, 1),('1-C5', true, 1),('1-C6', true, 1),('1-C7', true, 1),('1-C8', true, 1),('1-C9', true, 1),('1-C10', true, 1),

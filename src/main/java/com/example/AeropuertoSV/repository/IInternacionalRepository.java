@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.example.AeropuertoSV.entity.Internacional;
 
 @Repository
-public interface IInternacionalRepository extends JpaRepository<Internacional, Long> {
+public interface IInternacionalRepository extends JpaRepository<Internacional, String> {
 
 }

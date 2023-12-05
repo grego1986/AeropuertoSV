@@ -7,7 +7,7 @@ public interface INacionalService {
 	
 	public List<Nacional> getAll();
 	public void cargarNacional(Nacional nacional);
-	public void modificarNacional(Nacional nacional, Long id);
+	public void modificarNacional(Nacional nacional, String id);
 	public void eliminarNacional(Nacional nacional);
-	public Nacional consultarNacional (Long id);
+	public Nacional consultarNacional (String id);
 }

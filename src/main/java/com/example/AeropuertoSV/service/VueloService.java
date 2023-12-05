@@ -31,9 +31,9 @@ public class VueloService implements IVueloService {
 	}
 
 	@Override
-	public void modificarVuelo(@RequestBody Vuelo vuelo, @PathVariable Long id ) {
+	public void modificarVuelo(@RequestBody Vuelo vuelo, @PathVariable String id ) {
 		if (vueloRepo.existsById(id)) {
-            vuelo.setIdVuelo(id);
+            vuelo.setnVuelo(id);
             vueloRepo.save(vuelo);
         } 	
 	}
@@ -44,7 +44,7 @@ public class VueloService implements IVueloService {
 	}
 
 	@Override
-	public Vuelo consultarVuelo(@PathVariable Long id) {
+	public Vuelo consultarVuelo(@PathVariable String id) {
 		return vueloRepo.findById(id).orElse(null);
 	}
 

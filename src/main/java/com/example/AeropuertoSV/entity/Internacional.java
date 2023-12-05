@@ -2,6 +2,8 @@ package com.example.AeropuertoSV.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,15 +13,15 @@ public class Internacional extends Vuelo {
 
 	@Column(name = "precio")
 	private double precio;
-	@Column(name = "tasa")
-	private double tasa;
-	
+	@ManyToOne
+	@JoinColumn(name = "id_Tasa")
+	private TasaInternacional tasa;
 	
 	public Internacional() {
 	}
 
 
-	public Internacional(double precio, double tasa) {
+	public Internacional(double precio, TasaInternacional tasa) {
 		super();
 		this.precio = precio;
 		this.tasa = tasa;
@@ -36,12 +38,12 @@ public class Internacional extends Vuelo {
 	}
 
 
-	public double getTasa() {
+	public TasaInternacional getTasa() {
 		return tasa;
 	}
 
 
-	public void setTasa(double tasa) {
+	public void setTasa(TasaInternacional tasa) {
 		this.tasa = tasa;
 	}
 

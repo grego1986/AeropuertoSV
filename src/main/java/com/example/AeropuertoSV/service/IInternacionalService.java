@@ -9,7 +9,7 @@ public interface IInternacionalService {
 	
 	public List<Internacional> getAll();
 	public void cargarInternacional(Internacional internacional);
-	public void modificarInternacional(Internacional internacional, Long id);
+	public void modificarInternacional(Internacional internacional, String id);
 	public void eliminarInternacional(Internacional internacional);
-	public Internacional consultarInternacional (Long id);
+	public Internacional consultarInternacional (String id);
 }
