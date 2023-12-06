@@ -58,6 +58,7 @@ public class RegistroVueloController {
 		modelo.addAttribute("origen", form);
 		modelo.addAttribute("destino", form);
 		modelo.addAttribute("avionAsignado", form);
+		modelo.addAttribute("precio", form);
 		
 		return "registroVuelo";
 	}
@@ -87,6 +88,11 @@ public class RegistroVueloController {
 	@ModelAttribute("tipoVuelo")
 	public String tipo () {
 		return form.getTipoVuelo();
+	}
+	
+	@ModelAttribute("moneda")
+	public String moneda () {
+		return form.getMoneda();
 	}
 	
 	@PostMapping
@@ -130,6 +136,7 @@ public class RegistroVueloController {
 		
 		if (action.equals("vueloTipo")) {
 			modelo.replace("tipoVuelo", vuelo(registro));
+			modelo.replace("moneda", moneda(registro));
 		}
 		
 		return redirecionar;
@@ -142,17 +149,20 @@ public class RegistroVueloController {
 		Ciudad cDestino = ciudadServi.consultarCiudad(rvf.getDestino());
 	
 		if (cOrigen.getPais().equals(cDestino.getPais())) {
-			Nacional nacional = new Nacional ();
-			nacional.setnVuelo(rvf.getnVuelo());
-			nacional.setFecha(rvf.getFecha());
-			nacional.setHora(rvf.getHora());
-			nacional.setOrigen(cOrigen);
-			nacional.setDestino(cDestino);
-			nacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
-			nacional.setEstado("Normal");
-			nacional.setPrecio(rvf.getPrecio());
+			Double precio = 0.0;
+			    Nacional nacional = new Nacional ();
+			    nacional.setnVuelo(rvf.getnVuelo());
+			    nacional.setFecha(rvf.getFecha());
+			    nacional.setHora(rvf.getHora());
+			    nacional.setOrigen(cOrigen);
+			    nacional.setDestino(cDestino);
+			    nacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
+			    nacional.setEstado("Normal");
+			   
+			    nacional.setPrecio(precio);
 			
-			nacionalServi.cargarNacional(nacional);
+			   nacionalServi.cargarNacional(nacional);
+	        			
 			
 		} else {
 			Internacional internacional = new Internacional ();
@@ -185,6 +195,35 @@ public class RegistroVueloController {
 	}
 	
 	
-	
 
+	public String moneda (RegistroVueloForm rvf) {
+		Ciudad cOrigen = ciudadServi.consultarCiudad(rvf.getOrigen());
+		Ciudad cDestino = ciudadServi.consultarCiudad(rvf.getDestino());
+		String moneda = null;
+		
+		if (cOrigen.getPais().equals(cDestino.getPais())) {
+			moneda = "AR$";
+		} else {
+			moneda = "U$S";
+		}
+		
+		return moneda;
+	}
+
+	
+	public static boolean esNumero(String str) {
+        
+		
+		try {
+           
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            
+            return false;
+        }
+		
+		
+    }
+	
 }

@@ -16,7 +16,8 @@ public class RegistroVueloForm {
 	private Long avionAsignado;
 	private String existe;
 	private String tipoVuelo;
-	private Double precio;
+	private String precio;
+	private String moneda;
 	
 	public RegistroVueloForm() {
 		super();
@@ -79,12 +80,20 @@ public class RegistroVueloForm {
 		this.tipoVuelo = tipoVuelo;
 	}
 
-	public Double getPrecio() {
+	public String getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Double precio) {
+	public void setPrecio(String precio) {
 		this.precio = precio;
+	}
+
+	public String getMoneda() {
+		return moneda;
+	}
+
+	public void setMoneda(String moneda) {
+		this.moneda = moneda;
 	}
 
 	
