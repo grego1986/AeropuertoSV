@@ -9,9 +9,6 @@ public class Validaciones {
 
 	@Autowired
 	private VueloService vuelo;
-	
-	
-	
 	public Validaciones() {
 		super();
 	}

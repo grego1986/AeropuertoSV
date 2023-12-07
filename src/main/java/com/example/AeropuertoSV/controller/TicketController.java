@@ -24,86 +24,42 @@ import com.example.AeropuertoSV.service.VueloService;
 @Controller
 @RequestMapping("/generarTicket")
 public class TicketController {
-/*	@Autowired
+	@Autowired
 	private TicketService ticketS;
 	@Autowired
 	private ClienteService clienteS;
-
 	@Autowired
 	private VueloService vueloS;
-
 	@Autowired
 	private AsientoService asientoS;
 
 	@GetMapping
-	public String show(@RequestParam String dni, Model model) {
-		formVuelo fVuelo = new formVuelo();
-		Cliente cliente = clienteS.consultarCliente(Long.parseLong(dni));
-		model.addAttribute("dni", dni);
-		model.addAttribute("formVuelo", fVuelo);
-		model.addAttribute("cliente", cliente);
-		model.addAttribute("vuelos", vueloS.vuelosConAsientosDisponibles());
-		return "generarTicket";
-	}
-
-	@GetMapping("/seleccionarVuelo")
-	public String seleccionarVuelo(@RequestParam String dni,formVuelo fVuelo, Model model) {
-		Cliente cliente = clienteS.consultarCliente(Long.parseLong(dni));
-		// Obtener el vuelo seleccionado
-		Vuelo vueloSeleccionado = obtenerVueloSeleccionado(fVuelo.getId_vuelo());
-		
-		// Obtener la lista de asientos disponibles para el vuelo seleccionado
-		List<Asiento> asientosDisponibles = obtenerAsientosDisponibles(vueloSeleccionado);
-
-		// Agregar atributos al modelo
-		model.addAttribute("dni", dni);
-		model.addAttribute("cliente", cliente);
-		model.addAttribute("vueloSeleccionado", vueloSeleccionado);
-		model.addAttribute("asientos", asientosDisponibles);
-		model.addAttribute("isInAsientosDisponiblesPage", true);
-
-		return "generarTicket";
-	}
-
-	@GetMapping("/seleccionarAsiento")
-	public String seleccionarAsiento(@RequestParam String dni, @ModelAttribute formVuelo fVuelo, Model model) {
-		System.out.println("ID del vuelo: " + fVuelo.getId_vuelo()); // Agrega este log para verificar el ID del vuelo
-		Vuelo vSeleccionado = vueloS.consultarVuelo(fVuelo.getId_vuelo());
-
-		// Obtener la lista de asientos disponibles para el vuelo seleccionado
-		List<Asiento> asientosDisponibles = obtenerAsientosDisponibles(vSeleccionado);
-
-		// Agregar atributos al modelo
-		model.addAttribute("dni", dni);
-		model.addAttribute("vueloSeleccionado", vSeleccionado);
-		model.addAttribute("asiento", asientosDisponibles);
-
-		return "generarTicket";
-	}
-	@GetMapping("/printTicket")
-	public String imprimirsalvar( @ModelAttribute Ticket ticket, String dni, Vuelo vSeleccionado, Model model) {
-		// Agrega los datos al modelo
-	    model.addAttribute("ticket", ticket);
-	    model.addAttribute("cliente", clienteS.consultarCliente(Long.parseLong(dni)));
-	    model.addAttribute("dni", dni); // Reemplaza con tu lógica real
-	    model.addAttribute("vuelo", vSeleccionado);
-	   // model.addAttribute("asiento", aSeleccionado);
-
-	    return "ticketGenerado";
-	}	
-	// Método para obtener el vuelo seleccionado
-	private Vuelo obtenerVueloSeleccionado(Long idVuelo) {
-		return vueloS.consultarVuelo(idVuelo);
-	}
-
-	// Método para obtener la lista de asientos disponibles para un vuelo
-	private List<Asiento> obtenerAsientosDisponibles(Vuelo vuelo) {
-		List<Asiento> asientosDisponibles = new ArrayList<>();
-		for (Asiento asiento : asientoS.getAll()) {
-			if (asiento.getAvion().equals(vuelo.avionAsignado) && asiento.isDisponible()) {
-				asientosDisponibles.add(asiento);
+	public String show(@RequestParam Long dni, Model modelo) {
+		formTicket FormTicket = new formTicket();
+		// List<Vuelo> vuelos = vueloS.getAll();
+		List<Vuelo> vuelos = new ArrayList<>();
+		modelo.addAttribute("formTicket", FormTicket);
+		// acá ya empiezo setteando el cliente.
+		FormTicket.setC(clienteS.consultarCliente(dni));
+		// modelo.addAllAttributes("vuelosDisponibles",
+		// vueloS.vuelosConAsientosDisponibles());
+		for (Vuelo s : vueloS.getAll()) {
+			List<Asiento> asientos =new ArrayList<>();
+			for(Asiento a :  asientoS.getAll()) {
+				if(s.getAvionAsignado().equals(a.getAvion())&&a.isDisponible()) {
+					asientos.add(a);
+				}
+			}
+			if(!asientos.isEmpty()) {
+				vuelos.add(s);
 			}
 		}
-		return asientosDisponibles;
-	}*/
+		// modelo.addAttribute("vuelos", vuelosDisponibles);
+		modelo.addAttribute("vuelos", vuelos);
+		System.out.println("Nolan");
+		System.out.println("Número de vuelos disponibles: " + vuelos.size());
+
+		return "/generarTicket";
+	}
+
 }

@@ -19,10 +19,10 @@ import jakarta.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "vuelos")
-public abstract class Vuelo {
+public class Vuelo {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//private Long idVuelo;
 	//@Column(name = "nroVuelo")
 	private String nVuelo;
@@ -136,8 +136,6 @@ public abstract class Vuelo {
 		this.avionAsignado = avionAsignado;
 	}
 
-	@Override
-	public abstract String toString();
 
 	
 }
