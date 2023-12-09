@@ -18,6 +18,11 @@ public class RegistroVueloForm {
 	private String tipoVuelo;
 	private String precio;
 	private String moneda;
+	private Double precioVuelo;
+	private String mismaCiudad;
+	private String avionInhabilitado;
+	private String numeroInvalido;
+	
 	
 	public RegistroVueloForm() {
 		super();
@@ -94,6 +99,38 @@ public class RegistroVueloForm {
 
 	public void setMoneda(String moneda) {
 		this.moneda = moneda;
+	}
+
+	public Double getPrecioVuelo() {
+		return precioVuelo;
+	}
+
+	public void setPrecioVuelo(Double precioVuelo) {
+		this.precioVuelo = precioVuelo;
+	}
+
+	public String getMismaCiudad() {
+		return mismaCiudad;
+	}
+
+	public void setMismaCiudad(String mismaCiudad) {
+		this.mismaCiudad = mismaCiudad;
+	}
+
+	public String getAvionInhabilitado() {
+		return avionInhabilitado;
+	}
+
+	public void setAvionInhabilitado(String avionInhabilitado) {
+		this.avionInhabilitado = avionInhabilitado;
+	}
+
+	public String getNumeroInvalido() {
+		return numeroInvalido;
+	}
+
+	public void setNumeroInvalido(String numeroInvalido) {
+		this.numeroInvalido = numeroInvalido;
 	}
 
 	

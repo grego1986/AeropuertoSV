@@ -1,5 +1,6 @@
 package com.example.AeropuertoSV.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import com.example.AeropuertoSV.entity.Avion;
 
@@ -10,4 +11,5 @@ public interface IAvionService {
 	public void modificarAvion(Avion avion, Long id);
 	public void eliminarAvion(Avion avion);
 	public Avion consultarAvion (Long id);
+	public boolean avionTieneVueloEnFecha(Long avionId, LocalDate fecha);
 }

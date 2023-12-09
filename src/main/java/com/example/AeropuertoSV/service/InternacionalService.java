@@ -1,10 +1,13 @@
 package com.example.AeropuertoSV.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Internacional;
 import com.example.AeropuertoSV.repository.IInternacionalRepository;
 
@@ -41,6 +44,11 @@ public class InternacionalService implements IInternacionalService {
 	@Override
 	public Internacional consultarInternacional(String id) {
 		return internRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Internacional> obtenerVuelosFiltrados(LocalDate fecha, Ciudad ciudadOrigen, Ciudad ciudadDestino) {
+		return internRepo.buscarVuelosPorFechaYFiltros(fecha, ciudadOrigen, ciudadDestino);
 	}
 	
 	

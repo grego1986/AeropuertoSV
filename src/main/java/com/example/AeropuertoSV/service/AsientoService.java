@@ -48,4 +48,9 @@ public class AsientoService implements IAsientoService{
 		return asientoRepo.findById(id).orElse(null);
 	}
 
+	@Override
+	public Long contarAsientosDisponiblesPorAvion(Long idAvion) {
+		return asientoRepo.contarAsientosDisponiblesPorAvion(idAvion);
+	}
+
 }

@@ -19,7 +19,6 @@ import com.example.AeropuertoSV.entity.Avion;
 import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Internacional;
 import com.example.AeropuertoSV.entity.Nacional;
-import com.example.AeropuertoSV.entity.Vuelo;
 import com.example.AeropuertoSV.service.AvionService;
 import com.example.AeropuertoSV.service.CiudadService;
 import com.example.AeropuertoSV.service.InternacionalService;
@@ -63,7 +62,6 @@ public class RegistroVueloController {
 		return "registroVuelo";
 	}
 		
-		
 	@ModelAttribute("ciudadOrigen")
 	public List<Ciudad> origen() {
 		return ciudadServi.getAll();
@@ -92,41 +90,98 @@ public class RegistroVueloController {
 	
 	@ModelAttribute("moneda")
 	public String moneda () {
+		form.setMoneda("AR$");
 		return form.getMoneda();
+	}
+	
+	@ModelAttribute("mismaCiudad")
+	public String mismaCiudad () {
+		return form.getMismaCiudad();
+	}
+	
+	@ModelAttribute("avionInhabilitado")
+	public String avionInhabilitado () {
+		return form.getAvionInhabilitado();
+	}
+	
+	@ModelAttribute("numeroInvalido")
+	public String numeroInvalido () {
+		return form.getNumeroInvalido();
 	}
 	
 	@PostMapping
 	public String registrar(@ModelAttribute("formBean") RegistroVueloForm registro, ModelMap modelo, @RequestParam String action) {
 		String redirecionar = null;
-		
+		String mensaje = "";
 		if(action.equals("verificar")) {
+			   //verifica si el numero de vuelo esta disponible
 		    	if (vuelo.consultarVuelo(registro.getnVuelo()) != null) {
-		    		form.setExiste("El numero de vuelo ya existe.");
-		    		modelo.replace("existe", form.getExiste());
+		    		//Vuelo ya existe
+		    		mensaje = "El numero de vuelo ya existe.";
+		    		modelo.replace("existe", mensaje);
 		    		
 		    	} else {
-		    		
-		    		form.setExiste("El numero de Vuelo se encuentra disponible.");
-		    		modelo.replace("existe", form.getExiste());	    		
+		    		//vuelo No existe
+		    		mensaje ="El numero de Vuelo se encuentra disponible.";
+		    		modelo.replace("existe", mensaje);	    		
 		    	}
 		    	
 		}
 		
 		if(action.equals("guardar")) {
-			
+			//verifica si el numero de vuelo esta disponible
 			if (vuelo.consultarVuelo(registro.getnVuelo()) != null) {
-	    		modelo.clear();
 	    		
+				//vuelo ya existe		
 	    	    form.setExiste("El numero de vuelo ya existe.");
 	    	    modelo.replace("existe", form.getExiste());
-	    	    redirecionar = "registroVuelo";
+	    	    
+	    	    
 	    	} else {
-	    		cargar(registro);
-			    modelo.clear();
+	    		
+	    		//vuelo no existe
+	    		//comprobar si origen y destino no sean los mismos
+	    		if (registro.getOrigen()!= registro.getDestino()) {
+	    			
+	    			//origen y destino son distintos
+	    			//verifica que el avion no tenga un vuelo asignado a la fecha del nuevo vuelo
+	    			if (avionServi.avionTieneVueloEnFecha(registro.getAvionAsignado(), registro.getFecha())) {
+	    				
+	    				//el avion ya tiene un vuelo asignado en esa fecha
+	    				mensaje = "el avion ya tiene un vuelo para ese dia";
+	    				modelo.replace("avionInhabilitado", mensaje);
+	    				
+	    			}else {
+	    				//el avion esta disponible ese dia
+	    				
+	    				//verifica que el precio es un numero
+	    				if (validar.esNumero(registro.getPrecio())) {
+	    		            // es numero
+	    		            registro.setPrecioVuelo(Double.parseDouble(registro.getPrecio()));
+	    		            cargar(registro);
+			                modelo.clear();
+			                redirecionar = "redirect:/registroVuelo";
+			                
+	    		        } else {
+	    		        	//no es numero
+	    		            mensaje = "ingrese un precio valido";
+	    		            modelo.replace("numeroInvalido", mensaje);
+	    		        }
+	    				
+	    			}
+	    			
+	    		}else {
+	    			//origen y destino son los mismos
+	    			mensaje = "La ciudad origen y destino no pueden ser el mismo";
+	    			modelo.replace("mismaCiudad", mensaje);
+	    			
+	    		}
+	    		
 	    	}
-		   
-
-			redirecionar = "redirect:/registroVuelo.html";
+			
+			
+            
+			
 		}
 		
 		if(action.equals("volver")) {
@@ -157,6 +212,7 @@ public class RegistroVueloController {
 			    nacional.setOrigen(cOrigen);
 			    nacional.setDestino(cDestino);
 			    nacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
+			    nacional.setPrecio(rvf.getPrecioVuelo());
 			    nacional.setEstado("Normal");
 			   
 			    nacional.setPrecio(precio);
@@ -173,6 +229,7 @@ public class RegistroVueloController {
 			internacional.setDestino(cDestino);
 			internacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
 			internacional.setEstado("Normal");
+			internacional.setPrecio(rvf.getPrecioVuelo());
 			
 			internacionalServi.cargarInternacional(internacional);
 			
@@ -210,20 +267,5 @@ public class RegistroVueloController {
 		return moneda;
 	}
 
-	
-	public static boolean esNumero(String str) {
-        
-		
-		try {
-           
-            Double.parseDouble(str);
-            return true;
-        } catch (NumberFormatException e) {
-            
-            return false;
-        }
-		
-		
-    }
 	
 }

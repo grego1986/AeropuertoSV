@@ -1,5 +1,6 @@
 package com.example.AeropuertoSV.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,12 @@ public class AvionService implements IAvionService {
 	@Override
 	public Avion consultarAvion(Long id) {
 		return avionRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public boolean avionTieneVueloEnFecha(Long avionId, LocalDate fecha) {
+		int cantidadVuelos = avionRepo.contarVuelosEnFecha(avionId, fecha);
+        return cantidadVuelos > 0;
 	}
 
 }

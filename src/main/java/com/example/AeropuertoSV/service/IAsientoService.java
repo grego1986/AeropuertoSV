@@ -12,5 +12,6 @@ public interface IAsientoService {
 	public void modificarAsiento(Asiento asiento, String id);
 	public void eliminarAsiento(Asiento asiento);
 	public Asiento consultarAsiento (String id);
+	public Long contarAsientosDisponiblesPorAvion(Long idAvion);
 	
 }

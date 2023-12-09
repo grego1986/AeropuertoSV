@@ -1,5 +1,6 @@
 package com.example.AeropuertoSV.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Vuelo;
 import com.example.AeropuertoSV.repository.IVueloRepository;
 
@@ -46,6 +48,11 @@ public class VueloService implements IVueloService {
 	@Override
 	public Vuelo consultarVuelo(@PathVariable String id) {
 		return vueloRepo.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Vuelo> obtenerVuelosFiltrados(@PathVariable LocalDate fecha, @PathVariable Ciudad ciudadOrigen, @PathVariable Ciudad ciudadDestino) {
+		return vueloRepo.buscarVuelosPorFechaYFiltros(fecha, ciudadOrigen, ciudadDestino);
 	}
 
 	
