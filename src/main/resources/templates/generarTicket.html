@@ -14,17 +14,44 @@
 	<h1>Emisión de Ticket</h1>
 	<h2>Complete los datos</h2>
 
-<form th:action="@{/generarTicket}" th:object="${formTicket}" method="get">
-    <select th:field="*{nVuelo}">
-        <option value="" disabled selected>Seleccione un vuelo</option>
-        <option th:each="vuelo, vueloStat : ${vuelos}" th:value="${vueloStat.index + 1}"
-                th:text="${vuelo.nVuelo + '|' + vuelo.origen.nombre + '-' + vuelo.destino.nombre}">
-        </option>
-    </select>
-    <button type="submit" class="btn btn-primary">Buscar</button>
-</form>
+	<form th:action="@{/generarTicket/AsientosDisponibles}" th:object="${formTicket}" method="get">
+		 <input type="hidden" name="dniCliente" th:value="${formTicket.dniCliente}" />
+    <!-- Otros campos del formulario -->
+		<select th:field="*{nVuelo}">
+			<option value="" disabled selected>Seleccione un vuelo</option>
+			<option th:each="vuelo : ${vuelos}" th:value="${vuelo.nVuelo}"
+				th:text="${vuelo.nVuelo + '|' + vuelo.origen.nombre + ' => ' + vuelo.destino.nombre}">
+			</option>
+		</select>
+		<select th:field="*{asiendoI}">
+			<option value="" disabled selected>Seleccione un asiento</option>
+			<!--
+				<option th:each="asiento, asientoStat : ${asiento}" th:value="${asientoStat.index + 1}"
+				th:text="${asiento.id}">
+			</option>
+			-->
+			<option th:each="asiento : ${asiento}" th:value="${asiento.id}"
+				th:text="${asiento.id}">
+			</option>
 
+		</select>
+		
+		<button type="submit" class="btn btn-primary">Siguiente</button>
 
+	</form>
+	<!--
+	<form th:action="@{/generarTicket}" th:object="${formTicket}" method="get">
+		<input type="hidden" name="dni" th:value="${dni}" />
+		<button type="submit" class="btn btn-primary">Siguiente</button>
+		<select th:field="*{a}">
+			<option value="" disabled selected>Seleccione un asiento</option>
+			<option th:each="asiento, asientoStat : ${asiento}" th:value="${asientoStat.index + 1}"
+				th:text="${asiento.id}">
+			</option>
+		</select>
+		<a th:href="@{ingresarUsuario}">Atrás</a>
+	</form>
+-->
 
 </body>
 

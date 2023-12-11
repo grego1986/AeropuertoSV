@@ -7,21 +7,17 @@ import com.example.AeropuertoSV.entity.Pasaje;
 public class formTicket{
 	private Long id;
 	private String nVuelo;
-	private Cliente c;
-	private Asiento a;
-	private Pasaje p;
-	
-	public formTicket(Long id, String nVuelo, Cliente c, Asiento a, Pasaje p) {
+	private Long dniCliente;
+	private String asiendoI;
+	public formTicket(Long id, String nVuelo, Long dniCliente, String asiendoI) {
 		super();
 		this.id = id;
 		this.nVuelo = nVuelo;
-		this.c = c;
-		this.a = a;
-		this.p = p;
+		this.dniCliente = dniCliente;
+		this.asiendoI = asiendoI;
 	}
 	public formTicket() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Long getId() {
 		return id;
@@ -35,24 +31,17 @@ public class formTicket{
 	public void setnVuelo(String nVuelo) {
 		this.nVuelo = nVuelo;
 	}
-	public Cliente getC() {
-		return c;
+	public Long getDniCliente() {
+		return dniCliente;
 	}
-	public void setC(Cliente c) {
-		this.c = c;
+	public void setDniCliente(Long dniCliente) {
+		this.dniCliente = dniCliente;
 	}
-	public Asiento getA() {
-		return a;
+	public String getAsiendoI() {
+		return asiendoI;
 	}
-	public void setA(Asiento a) {
-		this.a = a;
-	}
-	public Pasaje getP() {
-		return p;
-	}
-	public void setP(Pasaje p) {
-		this.p = p;
+	public void setAsiendoI(String asiendoI) {
+		this.asiendoI = asiendoI;
 	}
 	
-		
 }

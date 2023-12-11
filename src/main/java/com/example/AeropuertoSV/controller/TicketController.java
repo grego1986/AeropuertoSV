@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.AeropuertoSV.entity.Asiento;
 import com.example.AeropuertoSV.entity.Cliente;
+import com.example.AeropuertoSV.entity.Pasaje;
 import com.example.AeropuertoSV.entity.Ticket;
 import com.example.AeropuertoSV.entity.Vuelo;
 import com.example.AeropuertoSV.service.AsientoService;
 import com.example.AeropuertoSV.service.ClienteService;
+import com.example.AeropuertoSV.service.PasajeService;
 import com.example.AeropuertoSV.service.TicketService;
 import com.example.AeropuertoSV.service.VueloService;
 
@@ -32,34 +34,93 @@ public class TicketController {
 	private VueloService vueloS;
 	@Autowired
 	private AsientoService asientoS;
+	@Autowired
+	private PasajeService pasajeS;
 
 	@GetMapping
-	public String show(@RequestParam Long dni, Model modelo) {
+	public String show(Long dni, Model modelo) {
 		formTicket FormTicket = new formTicket();
-		// List<Vuelo> vuelos = vueloS.getAll();
-		List<Vuelo> vuelos = new ArrayList<>();
 		modelo.addAttribute("formTicket", FormTicket);
-		// acá ya empiezo setteando el cliente.
-		FormTicket.setC(clienteS.consultarCliente(dni));
-		// modelo.addAllAttributes("vuelosDisponibles",
-		// vueloS.vuelosConAsientosDisponibles());
+
+		List<Vuelo> vuelosDisponibles = obtenerVuelosConAsientosDisponibles();
+		modelo.addAttribute("vuelos", vuelosDisponibles);
+
+		modelo.addAttribute("dni", dni);
+		// FormTicket.setDniCliente(dni);
+		System.out.print(dni + "|" + FormTicket.getDniCliente());
+		if (dni != null) {
+			FormTicket.setDniCliente(dni);
+		}
+		return "generarTicket";
+	}
+
+	@GetMapping("/AsientosDisponibles")
+	public String mostrarAsientosDisponibles(formTicket FormTicket, Model modelo) {
+		Vuelo vueloSeleccionado = vueloS.consultarVuelo(FormTicket.getnVuelo());
+		List<Asiento> asientosDisponibles = obtenerAsientosDisponibles(vueloSeleccionado);
+		modelo.addAttribute("vuelos", vueloSeleccionado);
+		System.out.println("Número de asientos disponibles: " + asientosDisponibles.size());
+		modelo.addAttribute("asiento", asientosDisponibles);
+		// modelo.addAttribute("dni", FormTicket.getDniCliente());
+		System.out.print("Running by: " + FormTicket.getDniCliente());
+		if (FormTicket.getDniCliente() != null && FormTicket.getAsiendoI() != null && FormTicket.getnVuelo() != null) {
+			try {
+				Ticket nTicket = new Ticket();
+				Pasaje nPasaje = new Pasaje();
+				nTicket.setCliente(clienteS.consultarCliente(FormTicket.getDniCliente()));
+				nTicket.setX(asientoS.consultarAsiento(FormTicket.getAsiendoI()));
+				nPasaje.setCliente(nTicket.getCliente());
+				nPasaje.setCliente(nTicket.getCliente());
+				nPasaje.setVuelo(vueloSeleccionado);
+				pasajeS.cargarPasaje(nPasaje);
+				nTicket.setPasaje(nPasaje);
+				ticketS.cargarTicket(nTicket);
+
+				asientoS.consultarAsiento(FormTicket.getAsiendoI()).setDisponible(false);
+				// nTicket.set
+				// return "redirect:/ImprimirTicket?ticket="+nTicket;
+				System.out.print("GG");
+			} catch (Exception e) {
+				System.out.print(e);
+			}
+
+		}
+		System.out.println("NIGGERS: "+FormTicket.getDniCliente() + "|" + FormTicket.getnVuelo() + "|" +FormTicket.getAsiendoI());
+		return "generarTicket";
+	}
+
+	// Método privado para obtener vuelos con asientos disponibles
+	private List<Vuelo> obtenerVuelosConAsientosDisponibles() {
+		List<Vuelo> vuelos = new ArrayList<>();
 		for (Vuelo s : vueloS.getAll()) {
-			List<Asiento> asientos =new ArrayList<>();
-			for(Asiento a :  asientoS.getAll()) {
-				if(s.getAvionAsignado().equals(a.getAvion())&&a.isDisponible()) {
+			List<Asiento> asientos = new ArrayList<>();
+			for (Asiento a : asientoS.getAll()) {
+				if (s.getAvionAsignado().equals(a.getAvion()) && a.isDisponible()) {
 					asientos.add(a);
 				}
 			}
-			if(!asientos.isEmpty()) {
+			if (!asientos.isEmpty()) {
 				vuelos.add(s);
 			}
 		}
-		// modelo.addAttribute("vuelos", vuelosDisponibles);
-		modelo.addAttribute("vuelos", vuelos);
-		System.out.println("Nolan");
-		System.out.println("Número de vuelos disponibles: " + vuelos.size());
-
-		return "/generarTicket";
+		return vuelos;
 	}
 
+	@GetMapping("/AsientosDisponibles/confimar")
+	public String confirmarAsiento(@ModelAttribute("formTicket") formTicket FormTicket, Long dni, String nVuelo,
+			String asiendoI, Model modelo) {
+		return null;
+
+	}
+
+	// Método privado para obtener asientos disponibles para un vuelo
+	private List<Asiento> obtenerAsientosDisponibles(Vuelo vuelo) {
+		List<Asiento> asientosDisponibles = new ArrayList<>();
+		for (Asiento asiento : asientoS.getAll()) {
+			if (asiento.getAvion().equals(vuelo.getAvionAsignado()) && asiento.isDisponible()) {
+				asientosDisponibles.add(asiento);
+			}
+		}
+		return asientosDisponibles;
+	}
 }
