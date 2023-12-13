@@ -51,6 +51,9 @@ public class TicketController {
 		if (dni != null) {
 			FormTicket.setDniCliente(dni);
 		}
+		String dadsa="dada";
+		modelo.addAttribute("fechaVuelo",dadsa);
+		modelo.addAttribute("horaSalida",dadsa);
 		return "generarTicket";
 	}
 
@@ -69,23 +72,28 @@ public class TicketController {
 				Pasaje nPasaje = new Pasaje();
 				nTicket.setCliente(clienteS.consultarCliente(FormTicket.getDniCliente()));
 				nTicket.setX(asientoS.consultarAsiento(FormTicket.getAsiendoI()));
-				nPasaje.setCliente(nTicket.getCliente());
+				//
 				nPasaje.setCliente(nTicket.getCliente());
 				nPasaje.setVuelo(vueloSeleccionado);
+				//
 				pasajeS.cargarPasaje(nPasaje);
 				nTicket.setPasaje(nPasaje);
 				ticketS.cargarTicket(nTicket);
 
 				asientoS.consultarAsiento(FormTicket.getAsiendoI()).setDisponible(false);
-				// nTicket.set
-				// return "redirect:/ImprimirTicket?ticket="+nTicket;
-				System.out.print("GG");
+				asientoS.cargarAsientoe(asientoS.consultarAsiento(FormTicket.getAsiendoI()));
+				Long id = nTicket.getId();
+				return "redirect:/ImprimirTicket?ticket="+id;
+				//return "redirect:/ImprimirTicket?ticket" + nTicket;
+				//return "redirect:/ImprimirTicket";
 			} catch (Exception e) {
 				System.out.print(e);
 			}
 
 		}
-		System.out.println("NIGGERS: "+FormTicket.getDniCliente() + "|" + FormTicket.getnVuelo() + "|" +FormTicket.getAsiendoI());
+		System.out.println("FF: "+FormTicket.getDniCliente() + "|" + FormTicket.getnVuelo() + "|" +FormTicket.getAsiendoI());
+		modelo.addAttribute("fechaVuelo",vueloSeleccionado.getFecha());
+		modelo.addAttribute("horaSalida",vueloSeleccionado.getHora());
 		return "generarTicket";
 	}
 
@@ -105,14 +113,6 @@ public class TicketController {
 		}
 		return vuelos;
 	}
-
-	@GetMapping("/AsientosDisponibles/confimar")
-	public String confirmarAsiento(@ModelAttribute("formTicket") formTicket FormTicket, Long dni, String nVuelo,
-			String asiendoI, Model modelo) {
-		return null;
-
-	}
-
 	// Método privado para obtener asientos disponibles para un vuelo
 	private List<Asiento> obtenerAsientosDisponibles(Vuelo vuelo) {
 		List<Asiento> asientosDisponibles = new ArrayList<>();
