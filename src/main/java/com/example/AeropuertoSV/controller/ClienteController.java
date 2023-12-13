@@ -17,9 +17,9 @@ public class ClienteController {
 	private ClienteService clienteS;
 
 	@GetMapping()
-	public String ingresarUsuario(Model modelo) {
+	public String ingresarUsuario(Model modelo,String msg) {
 		modelo.addAttribute("formCliente", new formCliente());
-		modelo.addAttribute("msg", ""); // Asegúrate de agregar msg al modelo
+		modelo.addAttribute("msg", msg);
 		return "/ingresarUsuario";
 	}
 

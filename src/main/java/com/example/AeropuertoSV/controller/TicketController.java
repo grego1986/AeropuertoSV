@@ -36,7 +36,6 @@ public class TicketController {
 	private AsientoService asientoS;
 	@Autowired
 	private PasajeService pasajeS;
-
 	@GetMapping
 	public String show(Long dni, Model modelo) {
 		formTicket FormTicket = new formTicket();
@@ -47,25 +46,22 @@ public class TicketController {
 
 		modelo.addAttribute("dni", dni);
 		// FormTicket.setDniCliente(dni);
-		System.out.print(dni + "|" + FormTicket.getDniCliente());
+	
 		if (dni != null) {
 			FormTicket.setDniCliente(dni);
 		}
-		String dadsa="dada";
-		modelo.addAttribute("fechaVuelo",dadsa);
-		modelo.addAttribute("horaSalida",dadsa);
 		return "generarTicket";
 	}
-
+	//Esta es otra página
 	@GetMapping("/AsientosDisponibles")
 	public String mostrarAsientosDisponibles(formTicket FormTicket, Model modelo) {
 		Vuelo vueloSeleccionado = vueloS.consultarVuelo(FormTicket.getnVuelo());
 		List<Asiento> asientosDisponibles = obtenerAsientosDisponibles(vueloSeleccionado);
 		modelo.addAttribute("vuelos", vueloSeleccionado);
-		System.out.println("Número de asientos disponibles: " + asientosDisponibles.size());
+		//System.out.println("Número de asientos disponibles: " + asientosDisponibles.size());
 		modelo.addAttribute("asiento", asientosDisponibles);
 		// modelo.addAttribute("dni", FormTicket.getDniCliente());
-		System.out.print("Running by: " + FormTicket.getDniCliente());
+		//System.out.print("Running by: " + FormTicket.getDniCliente());
 		if (FormTicket.getDniCliente() != null && FormTicket.getAsiendoI() != null && FormTicket.getnVuelo() != null) {
 			try {
 				Ticket nTicket = new Ticket();
@@ -87,13 +83,12 @@ public class TicketController {
 				//return "redirect:/ImprimirTicket?ticket" + nTicket;
 				//return "redirect:/ImprimirTicket";
 			} catch (Exception e) {
-				System.out.print(e);
+				String msg ="El cliente ya tiene un ticket y/o pasaje";
+				return "redirect:/ingresarUsuario?msg=" + msg;
+				
 			}
 
 		}
-		System.out.println("FF: "+FormTicket.getDniCliente() + "|" + FormTicket.getnVuelo() + "|" +FormTicket.getAsiendoI());
-		modelo.addAttribute("fechaVuelo",vueloSeleccionado.getFecha());
-		modelo.addAttribute("horaSalida",vueloSeleccionado.getHora());
 		return "generarTicket";
 	}
 
