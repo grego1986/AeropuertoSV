@@ -11,13 +11,16 @@
 </head>
 
 <body>
-	<h1>Ya casi!!!!</h1>
-	<h2>Corrobora tus datos!</h2>
-	<p th:text"${cNombre}"></p>
-	<p th:text"${cApellido}"></p>
-	<p th:text"${Vuelo}"></p>
-	<p th:text"${Asiento}"></p>
-	<p th:text"${id}"></p>
+	<h1>Hecho!!!</h1>
+	<h2>Aquí su ticket, generado:</h2>
+<p th:text="${'Nombre: ' + cNombre + ' ' + cApellido}"></p>
+<!--
+<p th:text="${'Apellido: ' + cApellido}"></p>
+-->
+<p th:text="${'Vuelo: ' + Vuelo + ' Asiento: ' + Asiento}"></p>
+<p th:text="${'De: ' + cOrigen + ' a ' + cDestino}"></p>
+<p th:text="${'Día: ' + fecha + ',a las ' + hora}"></p>
+	<a href:"index.html" class="btn btn-primary">Volver</a>
 </body>
 
 
