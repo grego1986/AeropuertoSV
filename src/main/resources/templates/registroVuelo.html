@@ -25,7 +25,7 @@
 
 	</div>
 
-	<div class="row ccontainerfluid">
+	<div class="row containerfluid">
 		<div class="col-3">
 
 		</div>
@@ -39,7 +39,7 @@
 					</div>
 					<div class="col-6">
 						<label>Número de Vuelo:</label>
-						<input type="text" th:field="*{nVuelo}" required/> 
+						<input type="text" th:field="*{nVuelo}" /> 
 						<p class="colorMensaje" th:text="${existe}">hola</p>
 					</div>
 					<div class="col-3">
@@ -49,24 +49,15 @@
 
 				</div>
 				<br>
-				<div class="row containerfluid">
-					<div class="col-6">
-						<label>Fecha:</label>
-						<input type="date" th:field="*{fecha}"  required/>
-					</div>
-					<div class="col-6">
-						<label>Hora:</label>
-						<input type="time" th:field="*{hora}"  required/>
-					</div>
-				</div>
-				<br>
+			
+				
 
 				<div class="row containerfluid">
 
 					<div class="col-6">
 						<label>Origen:</label>
 						<select class="form-select form-select-lg mb-3" aria-label="Large select example"
-							th:field="*{origen}" required>
+							th:field="*{origen}">
 							<option value="" selected>Elige una Ciudad</option>
 							<option th:each="ciudad : ${ciudadOrigen}" th:value="${ciudad.id}"
 								th:text="${ciudad.nombre}">
@@ -77,7 +68,7 @@
 					<div class="col-6">
 						<label>Destino:</label>
 						<select class="form-select form-select-lg mb-3" aria-label="Large select example"
-							th:field="*{destino}" required>
+							th:field="*{destino}">
 							<option value="" selected>Elige una Ciudad</option>
 							<option th:each="ciudad : ${ciudadDetino}" th:value="${ciudad.id}"
 								th:text="${ciudad.nombre}">
@@ -102,7 +93,7 @@
 					<label>Avion:</label>
 					<div class="col-12">
 						<select class="form-select form-select-lg mb-3" aria-label="Large select example"
-							th:field="*{avionAsignado}" required>
+							th:field="*{avionAsignado}">
 							<option value="" selected>Elige un Avion</option>
 							<option th:each="avion : ${aviones}" th:value="${avion.id}" th:text="${avion.nombre}">
 							</option>
@@ -116,11 +107,24 @@
 						<h6 th:text="${moneda}"></h6>
 					</div>
 					<div class="col-10">
-						<input type="text" th:field="*{precio}" required></input>
+						<input type="text" th:field="*{precio}"></input>
 					</div>
 					<p class="colorMensaje" th:text="${numeroInvalido}"></p>
 				</div>
 				<br>
+				
+				<div class="row containerfluid">
+					<div class="col-6">
+						<label>Fecha:</label>
+						<input type="date" th:field="*{fecha}" />
+					</div>
+					<div class="col-6">
+						<label>Hora:</label>
+						<input type="time" th:field="*{hora}" />
+					</div>
+				</div>
+				<br>
+				
 				<div class="row containerfluid">
 					<div class="col-4">
 

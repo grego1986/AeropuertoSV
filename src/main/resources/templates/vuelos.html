@@ -17,14 +17,15 @@
       th:action="@{/vuelos}"
       method="post"
       th:object="${vueloForm}"
-      class="mt-4"
-    >
+      class="mt-4">
+      
       <div class="mb-3">
         <label for="fecha" class="form-label">Fecha a Consultar:</label>
-        <input type="date" th:field="*{fecha}" required class="form-control" />
+        <input type="date" th:field="*{fecha}" class="form-control" />
+        
       </div>
-
-      <div class="mb-3">
+      <div class="row containerfluid">
+		  <div class="mb-3 col-4">
         <label for="origen" class="form-label">Origen:</label>
         <select class="form-select form-select-lg mb-3" aria-label="Large select example" th:field="*{origen}">
 				<option value="" selected>Elige una Ciudad</option>
@@ -32,16 +33,14 @@
 							
 		</select>
       </div>
-
-      <div class="mb-3">
+       <div class="mb-3 col-4">
         <label for="destino" class="form-label">Destino:</label>
         	<select class="form-select form-select-lg mb-3" aria-label="Large select example" th:field="*{destino}">
 					<option value="" selected>Elige una Ciudad</option>
 					<option th:each="ciudad : ${ciudadDestino}" th:value="${ciudad.id}"	th:text="${ciudad.nombre}"></option>
 			</select>
       </div>
-
-      <div class="mb-3">
+      <div class="mb-3 col-4">
         <label for="tipo_vuelo" class="form-label">Tipo de Vuelo:</label>
         <select name="tipo_vuelo" class="form-select" th:field="*{tipoVuelo}">
           <option value="">-- Todos los Tipos --</option>
@@ -49,10 +48,11 @@
           <option th:value="internacional">Internacional</option>
         </select>
       </div>
-
-      <input type="submit" class="btn btn-primary" name="action" value="buscar">Buscar Vuelos</input>
+	  </div>
       
-      
+      <input type="submit" class="btn btn-primary" name="action" value="buscar"></input>
+      <input type="submit" class="btn btn-secondary" name="action" value="volver"></input>
+           
     </form>
 
     <div th:if="${#lists.isEmpty(vuelos)}" class="mt-4">
@@ -84,5 +84,6 @@
          </tr>
       </tbody>
     </table>
+    
   </body>
   </html>

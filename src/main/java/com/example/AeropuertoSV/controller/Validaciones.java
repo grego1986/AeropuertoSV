@@ -29,4 +29,31 @@ public class Validaciones {
 		
     }
 	
+	public boolean vacio (String nv) {
+		boolean resultado = false;
+		if (nv =="") {
+			resultado = true;
+		}
+		return resultado;
+	}
+	
+	
+	public boolean OrigenDestinoVacio (RegistroVueloForm rv) {
+		boolean v = false;
+		if ((rv.getOrigen() == null) || (rv.getDestino() == null)) {
+			v=true;
+			throw new IllegalArgumentException("La ciudad de origen o Ciudad de destino no puede ser nulos aca.");
+		} 
+		return v;
+	}
+	
+	public boolean avionVacio(RegistroVueloForm rv) {
+		boolean v = false;
+		if (rv.getAvionAsignado()== null) {
+			v=true;
+			throw new IllegalArgumentException("Seleccione un avion para el vuelo.");
+		
+		}
+		return v;
+	}
 }

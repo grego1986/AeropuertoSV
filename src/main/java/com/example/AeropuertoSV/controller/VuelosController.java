@@ -2,12 +2,14 @@ package com.example.AeropuertoSV.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,12 +75,13 @@ public class VuelosController {
     }
 
     @PostMapping
-    public String buscarVuelos(@ModelAttribute("vueloForm") VueloForm form, Model model, @RequestParam String action) {
+    public String buscarVuelos(@ModelAttribute("vueloForm") VueloForm form, ModelMap model, @RequestParam String action) {
         System.out.println("Objeto VueloForm: " + form);
 
         List<GrillaConsulta> vuelos = new ArrayList<>();
         Ciudad origen = null;
         Ciudad Destino = null;
+        String redirecionar = "";
                 
         if (action.equals("buscar")) {
         	        	
@@ -107,10 +110,15 @@ public class VuelosController {
            
         	model.addAttribute("vuelos", vuelos);
         	
-        	
+        	redirecionar = "/vuelos";
         }
+        
+        if (action.equals("volver")) {
+			model.clear();
+			redirecionar = "redirect:/";
+		}
      
-        return "/vuelos";
+        return redirecionar;
     }
 
     public List<GrillaConsulta> listaConsulta (List<Vuelo> vuelos){
