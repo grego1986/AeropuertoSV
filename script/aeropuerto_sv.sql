@@ -316,7 +316,22 @@ INSERT INTO `aeropuerto_sv`.`pais` (`nombre`) VALUES
 INSERT INTO `aeropuerto_sv`.`pasaportes` (`expiracion`, `n_pasaporte`, `cliente_id`) VALUES
     ('2025-01-10', 'ad125112544d', 4),
     ('2024-01-10', 'jjnh23522614', 5);
-    
+-- Insertar datos de ciudades
+INSERT INTO vuelos (n_vuelo, estado, fecha, hora, avion_asignado, ciudad_destino, ciudad_origen)
+VALUES 
+    ('AR123', 'Programado', '2023-01-15', '15:30', 1, 3, 2),
+    ('AR456', 'En curso', '2023-02-20', '10:45', 2, 4, 1),
+    ('INTL001', 'Programado', '2023-03-10', '08:00', 3, 5, 3),
+    ('US789', 'En curso', '2023-04-05', '13:15', 1, 6, 7);
+INSERT INTO tasa_nacional (iva, precio, tasa)
+VALUES 
+    (15, 350.00, 21.00)
+INSERT INTO tasa_nacional (iva, precio, tasa)
+VALUES 
+    (21, 100.00, 21.00)   
+    INSERT INTO tasa_internacional (dolar, iva, tasa)
+VALUES 
+    (25, 800, 0.15),  
     
 
 SET SQL_MODE=@OLD_SQL_MODE;
