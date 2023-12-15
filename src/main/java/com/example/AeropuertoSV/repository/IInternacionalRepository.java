@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Internacional;
-import com.example.AeropuertoSV.entity.Vuelo;
 
 @Repository
 public interface IInternacionalRepository extends JpaRepository<Internacional, String> {

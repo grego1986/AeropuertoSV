@@ -14,18 +14,21 @@ import jakarta.persistence.Table;
 @Table(name="TasaNacional")
 public class TasaNacional {
     
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@Column(name = "precio")
+	private Integer id;	
+	@Column(name = "precio",nullable = false)
 	private double precio;
-	@Column(name = "tasa")
+	@Column(name = "tasa", nullable = false)
 	private double tasa;
-	@Column(name = "IVA")
+	@Column(name = "IVA",nullable = false)
 	private double iva;
 	@OneToMany(mappedBy = "tasa")
 	private List<Nacional> nacional;
+	
+	public TasaNacional() {
+		super();
+	}
 	
 	public TasaNacional(double precio, double tasa, double iva) {
 		super();
@@ -33,6 +36,7 @@ public class TasaNacional {
 		this.tasa = tasa;
 		this.iva = iva;
 	}
+	
 	public double getPrecio() {
 		return precio;
 	}
@@ -57,6 +61,16 @@ public class TasaNacional {
 	public void setIva(double iva) {
 		this.iva = iva;
 	}
+	
+	
+	public List<Nacional> getNacional() {
+		return nacional;
+	}
+
+	public void setNacional(List<Nacional> nacional) {
+		this.nacional = nacional;
+	}
+
 	@Override
 	public String toString() {
 		return "TasaNacional [id=" + id + ", precio=" + precio + ", tasa=" + tasa + ", iva=" + iva + "]";

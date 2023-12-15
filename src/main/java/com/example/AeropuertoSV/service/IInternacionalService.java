@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.example.AeropuertoSV.entity.Ciudad;
 import com.example.AeropuertoSV.entity.Internacional;
-import com.example.AeropuertoSV.entity.Vuelo;
 
 public interface IInternacionalService {
 

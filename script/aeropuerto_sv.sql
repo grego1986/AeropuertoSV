@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `aeropuerto_sv`.`tickets` (
   `pasaje_id` BIGINT NULL DEFAULT NULL,
   `asiento_id` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `UK_rkavvwbijd86sxebbemtdxiht` (`cliente_id` ASC),
+  INDEX `UK_rkavvwbijd86sxebbemtdxiht` (`cliente_id` ASC),
   UNIQUE INDEX `UK_qqjegc9utry0gpixw9ql8yng2` (`pasaje_id` ASC),
   INDEX `FKsw4du2vel0094r1ed4wovdb8` (`asiento_id` ASC),
   CONSTRAINT `FK2f0q7f90k3mqx8x6rvy1emc40`

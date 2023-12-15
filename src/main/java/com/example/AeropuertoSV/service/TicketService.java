@@ -38,4 +38,10 @@ public class TicketService implements ITicketService {
 	 System.out.print(ticketSystem);
 	 }
 
+	@Override
+	public Ticket buscarTicket(Long id) {
+		return ticketRepo.findById(id).orElse(null);
+		
+	}
+
 }

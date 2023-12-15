@@ -10,21 +10,48 @@
 </head>
 <body>
 	<h1>Edición de Tasas e Impuestos</h1>
-    <form action="procesar_edicion.php" method="post">
+	 <form th:action="@{/tasas}" th:object="${formTasas}"method="post">
+		  <label for="iva">IVA (%):</label>
+        <label class="mx-1 " th:text="${tn}"></label>
+        
+        <div class="row containerfluid">
+			<div class="col-12">
+				<label for="tasa_nacional">Tasa Aeroportuaria Nacional (USD):</label>
+				<label class="mx-1 " th:text="${tn}"></label>
+			</div>
+			<div class="col-2">
+				
+			</div>
+            
+		</div>
+        
+        
+        
+
+        <label for="tasa_internacional">Tasa Aeroportuaria Internacional (USD):</label>
+        <label class="mx-1 " th:text="${tn}"></label>
+        <br>
+        <label for="cotizacion_dolar">Cotización del Dólar ($):</label>
+        <label class="mx-1 " th:text="${tn}"></label>
+        <br>
+
+		 
+	 </form>
+    <form th:action="@{/tasas}" th:object="${formTasas}"method="post">
         <label for="iva">IVA (%):</label>
-        <input type="number" name="iva" step="0.01" min="0" max="100" required>
+        <input type="number" th:name="iva" step="0.01" min="0" max="100" required>
         <br>
 
         <label for="tasa_nacional">Tasa Aeroportuaria Nacional (USD):</label>
-        <input type="number" name="tasa_nacional" step="0.01" min="0" required>
+        <input type="number" th:name="tasa_nacional" step="0.01" min="0" required>
         <br>
 
         <label for="tasa_internacional">Tasa Aeroportuaria Internacional (USD):</label>
-        <input type="number" name="tasa_internacional" step="0.01" min="0" required>
+        <input type="number" th:name="tasa_internacional" step="0.01" min="0" required>
         <br>
 
         <label for="cotizacion_dolar">Cotización del Dólar ($):</label>
-        <input type="number" name="cotizacion_dolar" step="0.01" min="0" required>
+        <input type="number" th:name="cotizacion_dolar" step="0.01" min="0" required>
         <br>
 
         <input type="submit" value="Guardar Cambios">

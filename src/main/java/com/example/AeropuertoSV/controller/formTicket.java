@@ -1,8 +1,6 @@
 package com.example.AeropuertoSV.controller;
 
-import com.example.AeropuertoSV.entity.Asiento;
-import com.example.AeropuertoSV.entity.Cliente;
-import com.example.AeropuertoSV.entity.Pasaje;
+
 
 public class formTicket{
 	private Long id;

@@ -17,7 +17,7 @@ import jakarta.persistence.GenerationType;
 public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
@@ -28,9 +28,8 @@ public class Ticket {
 	@JoinColumn(name = "pasaje_id", referencedColumnName = "idPasaje")
 	private Pasaje pasaje;
 
-	public Ticket(long id, Cliente cliente, Asiento x, Pasaje pasaje) {
+	public Ticket(Cliente cliente, Asiento x, Pasaje pasaje) {
 		super();
-		this.id = id;
 		this.cliente = cliente;
 		this.x = x;
 		this.pasaje = pasaje;

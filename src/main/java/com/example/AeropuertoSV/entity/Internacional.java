@@ -50,8 +50,8 @@ public class Internacional extends Vuelo {
 
 	@Override
 	public String toString() {
-		return "Internacional";
-	}
+		return this.getnVuelo() + "-" + this.getOrigen().getNombre() +"/"+this.getDestino().getNombre();
+		}
 	
 	
 

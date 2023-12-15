@@ -219,13 +219,12 @@ public class RegistroVueloController {
 	}
 
 	public void cargar(RegistroVueloForm rvf) {
-		int origen = rvf.getOrigen().intValue();
-		int destino = rvf.getDestino().intValue();
+		
 		Ciudad cOrigen = ciudadServi.consultarCiudad(rvf.getOrigen());
 		Ciudad cDestino = ciudadServi.consultarCiudad(rvf.getDestino());
 
 		if (cOrigen.getPais().equals(cDestino.getPais())) {
-			Double precio = 0.0;
+			
 			Nacional nacional = new Nacional();
 			nacional.setnVuelo(rvf.getnVuelo());
 			nacional.setFecha(rvf.getFecha());
