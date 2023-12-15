@@ -23,6 +23,8 @@ import com.example.AeropuertoSV.service.AvionService;
 import com.example.AeropuertoSV.service.CiudadService;
 import com.example.AeropuertoSV.service.InternacionalService;
 import com.example.AeropuertoSV.service.NacionalService;
+import com.example.AeropuertoSV.service.TasaInternacionalService;
+import com.example.AeropuertoSV.service.TasaNacionalService;
 import com.example.AeropuertoSV.service.VueloService;
 
 @Controller
@@ -39,6 +41,10 @@ public class RegistroVueloController {
 	private InternacionalService internacionalServi;
 	@Autowired
 	private VueloService vuelo;
+	@Autowired
+	private TasaNacionalService tnS;
+	@Autowired
+	private TasaInternacionalService tiS;
 
 	private Validaciones validar = new Validaciones();
 
@@ -219,12 +225,13 @@ public class RegistroVueloController {
 	}
 
 	public void cargar(RegistroVueloForm rvf) {
-		
+		int origen = rvf.getOrigen().intValue();
+		int destino = rvf.getDestino().intValue();
 		Ciudad cOrigen = ciudadServi.consultarCiudad(rvf.getOrigen());
 		Ciudad cDestino = ciudadServi.consultarCiudad(rvf.getDestino());
 
 		if (cOrigen.getPais().equals(cDestino.getPais())) {
-			
+			Double precio = 0.0;
 			Nacional nacional = new Nacional();
 			nacional.setnVuelo(rvf.getnVuelo());
 			nacional.setFecha(rvf.getFecha());
@@ -234,6 +241,7 @@ public class RegistroVueloController {
 			nacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
 			nacional.setPrecio(rvf.getPrecioVuelo());
 			nacional.setEstado("Normal");
+			nacional.setTasa(tnS.consultarTasa(1));
 
 			nacionalServi.cargarNacional(nacional);
 
@@ -247,6 +255,7 @@ public class RegistroVueloController {
 			internacional.setAvionAsignado(avionServi.consultarAvion(rvf.getAvionAsignado()));
 			internacional.setEstado("Normal");
 			internacional.setPrecio(rvf.getPrecioVuelo());
+			internacional.setTasa(tiS.consultarTasa(1));
 
 			internacionalServi.cargarInternacional(internacional);
 

@@ -17,8 +17,6 @@ public class TasaNacional {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;	
-	@Column(name = "precio",nullable = false)
-	private double precio;
 	@Column(name = "tasa", nullable = false)
 	private double tasa;
 	@Column(name = "IVA",nullable = false)
@@ -30,19 +28,13 @@ public class TasaNacional {
 		super();
 	}
 	
-	public TasaNacional(double precio, double tasa, double iva) {
+	public TasaNacional( double tasa, double iva) {
 		super();
-		this.precio = precio;
 		this.tasa = tasa;
 		this.iva = iva;
 	}
 	
-	public double getPrecio() {
-		return precio;
-	}
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
+	
 	public double getTasa() {
 		return tasa;
 	}
@@ -73,7 +65,7 @@ public class TasaNacional {
 
 	@Override
 	public String toString() {
-		return "TasaNacional [id=" + id + ", precio=" + precio + ", tasa=" + tasa + ", iva=" + iva + "]";
+		return "TasaNacional [id=" + id + ", tasa=" + tasa + ", iva=" + iva + "]";
 	}
 	
 	
