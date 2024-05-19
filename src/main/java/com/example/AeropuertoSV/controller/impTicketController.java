@@ -28,7 +28,6 @@ public class impTicketController{
 	
 	@GetMapping
 	public String imprimirDatos(@RequestParam(name = "ticket", required = false) Long id,Model modelo) {
-		//System.out.println("LOADALSDOASDOADOA" +id);
 		Ticket nTicket = ticketS.buscarTicket(id);
 		Vuelo v = nTicket.getPasaje().getVuelo();
 	    Cliente c = nTicket.getCliente();

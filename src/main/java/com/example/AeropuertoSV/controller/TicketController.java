@@ -23,9 +23,12 @@ import com.example.AeropuertoSV.service.PasajeService;
 import com.example.AeropuertoSV.service.TicketService;
 import com.example.AeropuertoSV.service.VueloService;
 
+
 @Controller
+//sirve para asignar webs al controlador y sus métodos
 @RequestMapping("/generarTicket")
 public class TicketController {
+	//inyección de dependencias
 	@Autowired
 	private TicketService ticketS;
 	@Autowired
@@ -36,6 +39,8 @@ public class TicketController {
 	private AsientoService asientoS;
 	@Autowired
 	private PasajeService pasajeS;
+	//get->Traigo
+	//GetMapping-> Mapearía lo que traigo de los parámetros
 	@GetMapping
 	public String show(Long dni, Model modelo) {
 		formTicket FormTicket = new formTicket();

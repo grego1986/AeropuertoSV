@@ -125,7 +125,7 @@ public class RegistroVueloController {
 		String nvuelo = registro.getnVuelo();
 		LocalDate f = registro.getFecha();
 
-		if (action.equals("verificar")) {
+		if (action.equals("Verificar")) {
 			if (validar.vacio(nvuelo)) {
 				form.setExiste("No puede estar vacio este campo.");
 				modelo.replace("existe", form.getExiste());
@@ -148,7 +148,7 @@ public class RegistroVueloController {
 
 		}
 
-		if (action.equals("guardar")) {
+		if (action.equals("Guardar")) {
 			// verifica si el numero de vuelo esta disponible
 			if (validar.vacio(nvuelo)) {
 				form.setExiste("No puede estar vacio este campo.");
@@ -211,16 +211,14 @@ public class RegistroVueloController {
 
 		}
 
-		if (action.equals("volver")) {
+		if (action.equals("VueloTipo")) {
+			modelo.replace("tipoVuelo", (vuelo(registro)));
+			modelo.replace("moneda", moneda(registro));
+		}
+		if (action.equals("Volver")) {
 			modelo.clear();
 			redirecionar = "redirect:/";
 		}
-
-		if (action.equals("vueloTipo")) {
-			modelo.replace("tipoVuelo", vuelo(registro));
-			modelo.replace("moneda", moneda(registro));
-		}
-
 		return redirecionar;
 	}
 
