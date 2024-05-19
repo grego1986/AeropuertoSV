@@ -1,3 +1,178 @@
-.colorMensaje{
-    color: rgb(255, 2, 2);
+.msg-fail {
+	color: rgb(255, 2, 2);
+	margin-top: 5%;
+}
+
+:root {
+	/*Colores principales*/
+	--bs-primary-black: #000000;
+	--bs-secundary-black: rgb(29, 29, 29);
+	--bs-alter-dark: rgb(41, 41, 41);
+	/* Puedes definir cualquier valor de color aquí */
+	--bs-btn-border-color-white: rgb(255, 255, 255);
+	--bs-btn-hover-color-black: rgb(0, 0, 0);
+	--bs-btn-hover-bg-white: rgb(255, 255, 255);
+	--bs-btn-secundary-hover-bg: rgb(31, 31, 31);
+	--bs-btn-alter-hover-dark: rgb(125, 125, 125);
+	--bs-btn-hover-border-color-black: rgb(0, 0, 0);
+	--bs-btn-active-bg-black: rgb(0, 0, 0);
+	--bs-btn-secundary-active-bg-black: rgb(128, 128, 128);
+	--bs-btn-active-border-color-black: rgb(0, 0, 0);
+}
+
+.body-wrapper {
+	display: flex;
+	width: auto;
+	height: auto;
+}
+
+.app-container {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-content: center;
+	flex-wrap: wrap;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+
+}
+
+.index-card {
+	width: 18rem;
+	height: auto;
+	/* Esto permite que la card se ajuste a la altura del contenido */
+	margin-left: 1em;
+	margin-right: 1em;
+	padding: 1%;
+	background-color: inherit;
+}
+
+.card-container {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	padding: 0px;
+}
+
+.card-title {
+	font-weight: bolder;
+}
+
+.label-important-bold {
+	font-weight: bolder;
+	font-size: x-large;
+}
+
+.underline-important {
+	font-weight: bolder;
+	text-decoration: underline;
+}
+
+input {
+	border-radius: 5px;
+}
+
+.ticket-printed {
+	text-align: left;
+	font-weight: 600;
+	margin: 5% 0 5% 0;
+	display: flex;
+	flex-direction: column;
+	padding: 2%;
+	border-radius: 5%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+		0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-printed p {
+	margin-bottom: 0;
+}
+
+.user-title {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	margin: 5% 0 5% 0;
+}
+
+.btn-primary {
+	/*position: absolute;*/
+	background-color: var(--bs-primary-black);
+	border-color: var(--bs-btn-border-color-white);
+	transition: 0.3s;
+	--bs-btn-active-color: white;
+	--bs-btn-active-bg: var(--bs-primary-black);
+	--bs-btn-active-border-color: white;
+}
+
+.btn-primary:hover {
+
+	transform: scale(1.1);
+	font-weight: bolder;
+	background-color: var(--bs-btn-hover-bg-white);
+	color: var(--bs-btn-hover-color-black);
+	border-color: var(--bs-btn-hover-border-color-black);
+}
+
+.btn-alter {
+	height: 100%;
+	align-self: center;
+	background-color: var(--bs-alter-dark);
+	color: white;
+	border-color: var(--bs-btn-border-color-white);
+
+}
+
+.btn-alter:hover {
+	border-color: var(--bs-btn-alter-hover-dark);
+
+}
+
+.btn-secondary {
+	background-color: var(--bs-secundary-black);
+	--bs-btn-active-bg: var(--bs-primary-black);
+	--bs-btn-active-border-color: white;
+	transition: 0.3s;
+}
+
+.btn-secondary:hover {
+	transform: scale(1.1);
+	font-weight: bolder;
+	background-color: var(--bs-btn-secundary-hover-bg);
+}
+
+/*RegistroVuelo Styles*/
+.fly-form {
+	display: flex;
+	padding: 2%;
+	border-radius: 5%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+		0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-taxes {
+	margin: 5px;
+	text-align: start;
+}
+
+.form-taxes input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.input-data {
+	display: flex;
+	margin: 5px;
+}
+
+.options-container {
+	margin-left: 5px;
+	margin-right: 5px;
 }

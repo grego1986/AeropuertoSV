@@ -6,19 +6,49 @@
 	<title>Aeropuerto Sauce Viejo </title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="/static/css/Style.css">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body>
-	<h1>Menú de Índice</h1>
-    <ul>
-<li><a th:href="@{'/registroVuelo'}">Registro de Vuelo</a></li>
-<li><a th:href="@{'/tasas'}">Edición de Tasas e Impuestos</a></li>
-<li><a th:href="@{'/vuelos'}">Consulta de Vuelos</a></li>
-<li><a th:href="@{'/ingresarUsuario'}">Enlace a Tickets</a></li>
+<body class="body-wrapper">
+	<div class="app-container">
+		<h1 class="app-title">Menú de Índice</h1>
+		<div class="card-container">
+			<div class="card index-card">
+				<img th:src="@{/other/ticket-shop.svg}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Registro de vuelos</h5>
+					<p class="card-text">Información sobre el registro de vuelos</p>
+					<a class="btn btn-primary btn-lg" th:href="@{'/registroVuelo'}">Ver más</a>
+				</div>
+			</div>
+			<div class="card index-card">
+				<img th:src="@{/other/lens.svg}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Consulta de vuelos</h5>
+					<p class="card-text">Consulta sobre vuelos disponibles</p>
+					<a class="btn btn-primary btn-lg" th:href="@{'/vuelos'}">Ver más</a>
+				</div>
+			</div>
+			<div class="card index-card">
+				<img th:src="@{/other/valuation.svg}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Edición tasas e impuestos</h5>
+					<p class="card-text">Edita las tasas aplicables a los vuelos</p>
+					<a class="btn btn-primary btn-lg" th:href="@{'/tasas'}">Ver más</a>
+				</div>
+			</div>
+			<div class="card index-card">
+				<img th:src="@{/other/ticket-alt.svg}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Emisión de tickets</h5>
+					<p class="card-text">Emita y gestione tickets de vuelo</p>
+					<a class="btn btn-primary btn-lg" th:href="@{'/ingresarUsuario'}">Ver más</a>
+				</div>
+			</div>
 
-        <!-- Agrega más enlaces a las historias de usuario anteriores si es necesario -->
-    </ul>
+			<!-- Agrega más enlaces a las historias de usuario anteriores si es necesario -->
+		</div>
+	</div>
 </body>
 
 </html>
